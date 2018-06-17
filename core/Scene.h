@@ -12,7 +12,7 @@
 #include <SDL2/SDL_render.h>
 #include "ECS.h"
 
-class Scene : Entity {
+class Scene : public Entity {
 
 public:
     std::vector<Entity*> entities;

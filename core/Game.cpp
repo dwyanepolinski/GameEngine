@@ -6,8 +6,6 @@
 #include "Game.h"
 #include "File.h"
 
-#define FPS 60
-
 SDL_Renderer *Game::renderer = nullptr;
 Scene *Game::current_scene = nullptr;
 
@@ -69,7 +67,8 @@ void Game::render() {
 }
 
 Game::~Game() {
-    delete current_scene;
+    for (auto const &scene: scenes)
+        delete scene.second;
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
@@ -119,6 +118,7 @@ void Game::definition_file_reader(Game *game, const std::string key, const std::
         char *current_scene_name = (char *) value.c_str();
         game->current_scene = new Scene();
         game->current_scene->load(current_scene_name);
+        game->scenes.insert(std::make_pair(game->current_scene->name, game->current_scene));
     }
     if (key == "window_title");
         SDL_SetWindowTitle(game->window, value.c_str());
