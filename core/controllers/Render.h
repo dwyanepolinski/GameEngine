@@ -21,6 +21,7 @@ public:
     SDL_Texture* texture = nullptr;
     void render();
     char* name = (char *) "render";
+    double scale = 1;
 
 private:
     SDL_Rect* dst_rect;

@@ -20,4 +20,5 @@ layer 0
 texture_x 0
 texture_y 0
 texture_path assets/textures/player.bmp
+scale 2
 END player_render

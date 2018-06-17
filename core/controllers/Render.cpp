@@ -29,9 +29,6 @@ void Render::load(char* _entity_name) {
     strcat(object_name, "_");
     strcat(object_name, name);
     File::load_defn(object_name, this, definition_file_reader);
-    SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
-    dst_rect->w = texture_width;
-    dst_rect->h = texture_height;
 }
 
 void Render::definition_file_reader(Render* render, const std::string key, const std::string value) {
@@ -39,7 +36,16 @@ void Render::definition_file_reader(Render* render, const std::string key, const
         render->dst_rect->x = std::stoi(value);
     if (key == "texture_y")
         render->dst_rect->y = std::stoi(value);
-    if(key == "texture_path")
+    if(key == "texture_path") {
         render->texture = File::load_texture((char *) value.c_str());
+        SDL_QueryTexture(render->texture, NULL, NULL, &render->texture_width, &render->texture_height);
+        render->dst_rect->w = render->texture_width;
+        render->dst_rect->h = render->texture_height;
+    }
+    if(key == "scale") {
+        render->scale = std::stod(value);
+        render->dst_rect->w *= render->scale;
+        render->dst_rect->h *= render->scale;
+    }
 }
 
