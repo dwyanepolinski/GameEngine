@@ -20,8 +20,6 @@ public:
     static SDL_Renderer *renderer;
     static Scene *current_scene;
     char* game_data_path;
-//    char* window_title = NULL;
-//    char* current_scene_name = NULL;
     const int window_width;
     const int window_height;
     std::map<char*, Scene*> scenes;
@@ -30,6 +28,9 @@ public:
 private:
     bool is_running = false;
     SDL_Window *window;
+    unsigned int fps_limit = 0;
+    unsigned int fps = 0;
+
 
     void handle_events();
     void update();

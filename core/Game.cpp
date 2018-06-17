@@ -6,6 +6,8 @@
 #include "Game.h"
 #include "File.h"
 
+#define FPS 60
+
 SDL_Renderer *Game::renderer = nullptr;
 Scene *Game::current_scene = nullptr;
 
@@ -52,7 +54,7 @@ void Game::handle_events() {
             is_running = false;
             break;
         case SDL_KEYUP:
-            std::cout<<event.key.keysym.sym<<std::endl;
+            std::cout << event.key.keysym.sym << std::endl;
             break;
         default:
             break;
@@ -61,7 +63,7 @@ void Game::handle_events() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    if(current_scene)
+    if (current_scene)
         current_scene->render();
     SDL_RenderPresent(renderer);
 }
@@ -75,10 +77,32 @@ Game::~Game() {
 }
 
 void Game::main_loop() {
+    unsigned int frame_ticks_start, frame_ticks_stop, ticks_now, frames = 0;
+    unsigned int prev_ticks = SDL_GetTicks();
+    const int delay = fps_limit ? 1000 / fps_limit : 0;
+
     while (is_running) {
+        frame_ticks_start = SDL_GetTicks();
+
         handle_events();
         update();
         render();
+
+        frames++;
+
+        if (fps_limit) {
+            frame_ticks_stop = SDL_GetTicks() - frame_ticks_start;
+            if (delay > frame_ticks_stop)
+                SDL_Delay(delay - frame_ticks_stop);
+        }
+
+        ticks_now = SDL_GetTicks();
+        if (ticks_now > prev_ticks + 1000) {
+            prev_ticks = ticks_now;
+            fps = frames;
+            std::cout << "FPS1: " << fps << std::endl;
+            frames = 0;
+        }
     }
 }
 
@@ -92,10 +116,12 @@ void Game::load(char *game_data_path) {
 
 void Game::definition_file_reader(Game *game, const std::string key, const std::string value) {
     if (key == "init_scene") {
-        char* current_scene_name = (char *) value.c_str();
+        char *current_scene_name = (char *) value.c_str();
         game->current_scene = new Scene();
         game->current_scene->load(current_scene_name);
     }
-    if(key == "window_title");
+    if (key == "window_title");
         SDL_SetWindowTitle(game->window, value.c_str());
+    if(key == "fps_limit")
+        game->fps_limit = (unsigned int) std::stoi(value);
 }

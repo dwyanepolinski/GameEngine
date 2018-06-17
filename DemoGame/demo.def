@@ -1,4 +1,5 @@
 BEGIN __GAME__
+fps_limit 60
 init_scene map_1
 window_title DemoGame
 END __GAME__
