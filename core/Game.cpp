@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Game.h"
 #include "File.h"
+#include "controllers/Control.h"
 
 SDL_Renderer *Game::renderer = nullptr;
 Scene *Game::current_scene = nullptr;
@@ -51,8 +52,17 @@ void Game::handle_events() {
         case SDL_QUIT:
             is_running = false;
             break;
-        case SDL_KEYUP:
-            std::cout << event.key.keysym.sym << std::endl;
+        case SDL_KEYUP: {
+            auto controlled_entities = ECS::filter_entities<Control>(current_scene->entities);
+            for (auto const &entity: controlled_entities)
+                entity->get_component<Control>()->keyup(event.key.keysym.sym);
+        }
+            break;
+        case SDL_KEYDOWN: {
+            auto controlled_entities = ECS::filter_entities<Control>(current_scene->entities);
+            for (auto const &entity: controlled_entities)
+                entity->get_component<Control>()->keydown(event.key.keysym.sym);
+        }
             break;
         default:
             break;

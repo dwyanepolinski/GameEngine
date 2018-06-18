@@ -5,6 +5,7 @@
 #include "ECS.h"
 #include "File.h"
 #include "controllers/Render.h"
+#include "controllers/Control.h"
 #include <algorithm>
 
 std::vector<Entity *> ECS::entities;
@@ -30,9 +31,12 @@ void Entity::load(char *_name) {
 }
 
 void Entity::definition_file_reader(Entity *entity, const std::string key, const std::string value) {
-    if(key == "component"){
-        if(value == "render")
+    if (key == "component") {
+        if (value == "render")
             entity->add_component<Render>();
+        if (value == "control")
+            entity->add_component<Control>();
+        std::cout << "Component " << value << " created" << std::endl;
     }
 }
 

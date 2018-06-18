@@ -9,11 +9,12 @@ component render
 END map_1
 BEGIN player
 component render
+component control
 END player
 BEGIN map_1_render
 texture_x 0
 texture_y 0
-texture_path assets/maps/map_1.bmp
+texture_path assets/textures/map_1.bmp
 END map_1_render
 BEGIN player_render
 layer 0

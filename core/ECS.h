@@ -10,12 +10,14 @@
 #include <vector>
 #include <map>
 
+class Entity;
 
 class Component {
 
 public:
     virtual ~Component(){};
 
+    const Entity* entity;
     char* name = nullptr;
     virtual void load(char *_load) {};
 
@@ -40,7 +42,9 @@ public:
     template<typename T> bool add_component() {
         if(in_component<T>())
             return false;
-        components.insert(std::make_pair((char *) typeid(T).name(), new T()));
+        T* component = new T();
+        component->entity = this;
+        components.insert(std::make_pair((char *) typeid(T).name(), component));
         return true;
     }
 

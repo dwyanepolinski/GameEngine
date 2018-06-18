@@ -13,7 +13,6 @@ Render::Render() {
     char* _name = new char[strlen(name)];
     strcpy(_name, name);
     name = _name;
-    std::cout << "[*] Component created " << name << std::endl;
 }
 
 Render::~Render() {
