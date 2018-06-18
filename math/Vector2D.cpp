@@ -1,0 +1,35 @@
+//
+// Created by john on 18.06.18.
+//
+
+#include "Vector2D.h"
+
+Vector2D Vector2D::operator+(const Vector2D &v) {
+    return Vector2D(x + v.x, y + v.y);
+}
+
+Vector2D Vector2D::operator-(const Vector2D &v) {
+    return Vector2D(x - v.x, y - v.y);
+}
+
+double Vector2D::len() const {
+    return sqrt((x * x) + (y * y));
+}
+
+double Vector2D::operator*(const Vector2D &v) {
+    return (x * v.x) - (y * v.y);
+}
+
+double Vector2D::scalar_vect_multiply(const Vector2D &v) const {
+    return (x * v.x) + (y * v.y);
+}
+
+Vector2D Vector2D::multiply_by_scalar(const double scalar) {
+    return Vector2D(x * scalar, y * scalar);
+}
+
+std::ostream &Vector2D::operator<<(std::ostream &stream, const Vector2D &v) {
+    stream << "Vector2D[" << x << "," << y << "]";
+    return stream;
+}
+
