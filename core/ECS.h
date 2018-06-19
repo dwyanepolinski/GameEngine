@@ -9,6 +9,7 @@
 #include <cassert>
 #include <vector>
 #include <map>
+#include "../math/Vector2D.h"
 
 class Entity;
 
@@ -30,6 +31,8 @@ class Entity {
 public:
     int id = 0;
     char *name;
+    Vector2D* position;
+    double speed = 0;
 
     Entity();
     virtual ~Entity();

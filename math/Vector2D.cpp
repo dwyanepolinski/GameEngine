@@ -28,8 +28,8 @@ Vector2D Vector2D::multiply_by_scalar(const double scalar) {
     return Vector2D(x * scalar, y * scalar);
 }
 
-std::ostream &Vector2D::operator<<(std::ostream &stream, const Vector2D &v) {
-    stream << "Vector2D[" << x << "," << y << "]";
+std::ostream& operator<<(std::ostream &stream, const Vector2D &v) {
+    stream << "Vector2D[" << v.x << "," << v.y << "]";
     return stream;
 }
 

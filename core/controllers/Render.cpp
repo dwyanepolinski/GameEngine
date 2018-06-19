@@ -6,6 +6,8 @@
 #include "../File.h"
 
 void Render::render() {
+    dst_rect->x = (int) (entity->position->x * entity->speed);
+    dst_rect->y = (int) (entity->position->y * entity->speed);
     SDL_RenderCopy(Game::renderer, texture, NULL, dst_rect);
 }
 
@@ -31,10 +33,6 @@ void Render::load(char* _entity_name) {
 }
 
 void Render::definition_file_reader(Render* render, const std::string key, const std::string value) {
-    if (key == "texture_x")
-        render->dst_rect->x = std::stoi(value);
-    if (key == "texture_y")
-        render->dst_rect->y = std::stoi(value);
     if(key == "texture_path") {
         render->texture = File::load_texture((char *) value.c_str());
         SDL_QueryTexture(render->texture, NULL, NULL, &render->texture_width, &render->texture_height);
