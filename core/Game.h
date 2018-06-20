@@ -30,6 +30,7 @@ private:
     SDL_Window *window;
     unsigned int fps_limit = 0;
     unsigned int fps = 0;
+    std::vector<Entity *> controllable_entities;
 
 
     void handle_events();

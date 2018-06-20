@@ -8,17 +8,9 @@
 
 
 void Scene::render() {
-    /* - render map
-     * - get all entities from scene with component Render
-     * - sort them by Render.layer
-     * - render all */
-
     get_component<Render>()->render();
 
-    auto filtered = ECS::filter_entities<Render>(entities);
-    std::sort(filtered.begin(), filtered.end(), compare_layers);
-
-    for (auto const &entity: filtered)
+    for (auto const &entity: renderable_entities)
         entity->get_component<Render>()->render();
 }
 
@@ -29,6 +21,8 @@ bool Scene::compare_layers(Entity *en_1, Entity *en_2) {
 void Scene::load(char *_name) {
     Entity::load(_name);
     File::load_defn(_name, this, definition_file_reader);
+    renderable_entities = ECS::filter_entities<Render>(entities);
+    std::sort(renderable_entities.begin(), renderable_entities.end(), compare_layers);
 }
 
 void Scene::definition_file_reader(Scene *scene, const std::string key, const std::string value) {

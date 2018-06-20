@@ -25,6 +25,7 @@ public:
 
 private:
     static bool compare_layers(Entity *en_1, Entity *en_2);
+    std::vector<Entity *> renderable_entities;
 };
 
 

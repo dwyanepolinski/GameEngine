@@ -40,6 +40,8 @@ Game::Game(char *path, int x_pos, int y_pos, int width, int height, bool fullscr
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     load(game_data_path);
 
+    controllable_entities = ECS::filter_entities<Control>(current_scene->entities);
+
     is_running = true;
     std::cout << "[*] Init complete" << std::endl;
 }
@@ -53,14 +55,12 @@ void Game::handle_events() {
             is_running = false;
             break;
         case SDL_KEYUP: {
-            auto controlled_entities = ECS::filter_entities<Control>(current_scene->entities);
-            for (auto const &entity: controlled_entities)
+            for (auto const &entity: controllable_entities)
                 entity->get_component<Control>()->keyup(event.key.keysym.sym);
         }
             break;
         case SDL_KEYDOWN: {
-            auto controlled_entities = ECS::filter_entities<Control>(current_scene->entities);
-            for (auto const &entity: controlled_entities)
+            for (auto const &entity: controllable_entities)
                 entity->get_component<Control>()->keydown(event.key.keysym.sym);
         }
             break;
@@ -109,7 +109,7 @@ void Game::main_loop() {
         if (ticks_now > prev_ticks + 1000) {
             prev_ticks = ticks_now;
             fps = frames;
-            std::cout << "FPS1: " << fps << std::endl;
+            std::cout << "FPS: " << fps << std::endl;
             frames = 0;
         }
     }
