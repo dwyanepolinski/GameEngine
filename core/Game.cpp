@@ -63,22 +63,6 @@ void Game::handle_events() {
         case SDL_KEYDOWN: {
             for (auto const &entity: controllable_entities)
                 entity->get_component<Control>()->keydown(event->key.keysym.sym);
-
-//            switch (event.key.keysym.sym){
-//                case SDLK_w:
-//                std::cout<<event.key.keysym.sym<<std::endl;
-//                    break;
-//                case SDLK_s:
-//                    std::cout<<event.key.keysym.sym<<std::endl;
-//                    break;
-//                case SDLK_a:
-//                    std::cout<<event.key.keysym.sym<<std::endl;
-//                    break;
-//                case SDLK_d:
-//                    std::cout<<event.key.keysym.sym<<std::endl;
-//                    break;
-//                default:break;
-//            }
         }
             break;
         default:
@@ -134,7 +118,7 @@ void Game::main_loop() {
 
 void Game::update() {
     for(auto &entity: ECS::entities)
-        *entity->position += entity->velocity->multiply_by_scalar(entity->speed);
+        *entity->position += entity->velocity->multiply_by_scalar(entity->speed).normalize();
 }
 
 void Game::load(char *game_data_path) {

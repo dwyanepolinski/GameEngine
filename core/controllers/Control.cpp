@@ -13,7 +13,6 @@ Control::Control() {
 }
 
 void Control::keydown(int key_sym) {
-    std::cout << key_sym << std::endl;
     switch (key_sym){
         case SDLK_w:
             entity->velocity->y = -1;
@@ -32,7 +31,6 @@ void Control::keydown(int key_sym) {
 }
 
 void Control::keyup(int key_sym) {
-    std::cout << key_sym << std::endl;
     switch (key_sym){
         case SDLK_w:
             entity->velocity->y = 0;

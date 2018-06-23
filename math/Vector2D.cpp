@@ -16,8 +16,8 @@ double Vector2D::len() const {
     return sqrt((x * x) + (y * y));
 }
 
-double Vector2D::operator*(const Vector2D &v) {
-    return (x * v.x) - (y * v.y);
+Vector2D Vector2D::operator*(const Vector2D &v) {
+    return Vector2D(x * v.x, y * v.y);
 }
 
 double Vector2D::scalar_vect_multiply(const Vector2D &v) const {
@@ -42,6 +42,21 @@ Vector2D &Vector2D::operator+=(const Vector2D &v) {
 Vector2D &Vector2D::operator-=(const Vector2D &v) {
     this->x -= v.x;
     this->y -= v.y;
+    return *this;
+}
+
+Vector2D &Vector2D::operator*=(const Vector2D &v) {
+    this->x *= v.x;
+    this->y *= v.y;
+    return *this;
+}
+
+Vector2D &Vector2D::normalize() {
+    double length = len();
+    if(length){
+        x /= length;
+        y /= length;
+    }
     return *this;
 }
 

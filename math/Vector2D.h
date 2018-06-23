@@ -19,14 +19,16 @@ public:
     Vector2D(double _x, double _y) : x(_x), y(_y){};
 
     double len() const;
+    Vector2D &normalize();
     double scalar_vect_multiply(const Vector2D &v) const;
     Vector2D multiply_by_scalar(const double scalar);
 
     Vector2D operator+(const Vector2D &v);
     Vector2D operator-(const Vector2D &v);
+    Vector2D operator*(const Vector2D &v);
     Vector2D &operator+=(const Vector2D &v);
     Vector2D &operator-=(const Vector2D &v);
-    double operator*(const Vector2D &v);
+    Vector2D &operator*=(const Vector2D &v);
 
     friend std::ostream& operator<<(std::ostream &stream, const Vector2D &v);
 
