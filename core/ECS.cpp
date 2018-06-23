@@ -4,8 +4,8 @@
 
 #include "ECS.h"
 #include "File.h"
-#include "controllers/Render.h"
-#include "controllers/Control.h"
+#include "components/Render.h"
+#include "components/Control.h"
 #include <algorithm>
 
 std::vector<Entity *> ECS::entities;
@@ -46,5 +46,7 @@ void Entity::definition_file_reader(Entity *entity, const std::string key, const
         entity->position->y = std::stoi(value);
     if (key == "speed")
         entity->speed = std::stod(value);
+    if (key == "master")
+        entity->master = true;
 }
 

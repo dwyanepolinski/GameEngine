@@ -3,7 +3,7 @@
 //
 
 #include "Scene.h"
-#include "controllers/Render.h"
+#include "components/Render.h"
 #include "File.h"
 
 

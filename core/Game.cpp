@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Game.h"
 #include "File.h"
-#include "controllers/Control.h"
+#include "components/Control.h"
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event *Game::event = new SDL_Event;

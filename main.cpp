@@ -1,7 +1,4 @@
 #include "core/Game.h"
-#include "core/ECS.h"
-#include "core/Scene.h"
-#include "core/controllers/Render.h"
 
 int main(int argc, char **argv) {
     Game game((char *) "/home/john/ClionProjects/GameEngine/DemoGame/demo.def");

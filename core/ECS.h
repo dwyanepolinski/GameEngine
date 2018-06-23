@@ -29,11 +29,11 @@ public:
 class Entity {
 
 public:
-    int id = 0;
     char *name;
     Vector2D* position;
     Vector2D* velocity;
     double speed = 0;
+    bool master = false;
 
     Entity();
     virtual ~Entity();
