@@ -33,3 +33,15 @@ std::ostream& operator<<(std::ostream &stream, const Vector2D &v) {
     return stream;
 }
 
+Vector2D &Vector2D::operator+=(const Vector2D &v) {
+    this->x += v.x;
+    this->y += v.y;
+    return *this;
+}
+
+Vector2D &Vector2D::operator-=(const Vector2D &v) {
+    this->x -= v.x;
+    this->y -= v.y;
+    return *this;
+}
+

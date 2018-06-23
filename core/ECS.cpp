@@ -12,6 +12,7 @@ std::vector<Entity *> ECS::entities;
 
 Entity::Entity() {
     position = new Vector2D(0, 0);
+    velocity = new Vector2D(0, 0);
     ECS::entities.push_back(this);
     std::cout << "[*] Enity created" << std::endl;
 }
@@ -43,5 +44,7 @@ void Entity::definition_file_reader(Entity *entity, const std::string key, const
         entity->position->x = std::stoi(value);
     if (key == "position_y")
         entity->position->y = std::stoi(value);
+    if (key == "speed")
+        entity->speed = std::stod(value);
 }
 

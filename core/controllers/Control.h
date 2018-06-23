@@ -14,7 +14,6 @@ public:
 
     Control();
     char* name = (char *) "control";
-    unsigned int speed = 1;
 
     virtual void keydown(int key_sym);
     virtual void keyup(int key_sym);

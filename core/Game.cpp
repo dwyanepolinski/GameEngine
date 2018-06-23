@@ -8,6 +8,7 @@
 #include "controllers/Control.h"
 
 SDL_Renderer *Game::renderer = nullptr;
+SDL_Event *Game::event = new SDL_Event;
 Scene *Game::current_scene = nullptr;
 
 Game::Game(char *path, int x_pos, int y_pos, int width, int height, bool fullscreen) : window_width(width),
@@ -47,21 +48,37 @@ Game::Game(char *path, int x_pos, int y_pos, int width, int height, bool fullscr
 }
 
 void Game::handle_events() {
-    SDL_Event event;
-    SDL_PollEvent(&event);
 
-    switch (event.type) {
+    SDL_PollEvent(event);
+
+    switch (event->type) {
         case SDL_QUIT:
             is_running = false;
             break;
         case SDL_KEYUP: {
             for (auto const &entity: controllable_entities)
-                entity->get_component<Control>()->keyup(event.key.keysym.sym);
+                entity->get_component<Control>()->keyup(event->key.keysym.sym);
         }
             break;
         case SDL_KEYDOWN: {
             for (auto const &entity: controllable_entities)
-                entity->get_component<Control>()->keydown(event.key.keysym.sym);
+                entity->get_component<Control>()->keydown(event->key.keysym.sym);
+
+//            switch (event.key.keysym.sym){
+//                case SDLK_w:
+//                std::cout<<event.key.keysym.sym<<std::endl;
+//                    break;
+//                case SDLK_s:
+//                    std::cout<<event.key.keysym.sym<<std::endl;
+//                    break;
+//                case SDLK_a:
+//                    std::cout<<event.key.keysym.sym<<std::endl;
+//                    break;
+//                case SDLK_d:
+//                    std::cout<<event.key.keysym.sym<<std::endl;
+//                    break;
+//                default:break;
+//            }
         }
             break;
         default:
@@ -116,7 +133,8 @@ void Game::main_loop() {
 }
 
 void Game::update() {
-
+    for(auto &entity: ECS::entities)
+        *entity->position += entity->velocity->multiply_by_scalar(entity->speed);
 }
 
 void Game::load(char *game_data_path) {

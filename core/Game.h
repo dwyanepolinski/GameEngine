@@ -19,6 +19,7 @@ public:
 
     static SDL_Renderer *renderer;
     static Scene *current_scene;
+    static SDL_Event *event;
     char* game_data_path;
     const int window_width;
     const int window_height;
