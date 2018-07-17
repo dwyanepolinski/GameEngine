@@ -18,6 +18,8 @@ public:
     virtual void keydown(int key_sym);
     virtual void keyup(int key_sym);
 
+    void camera();
+
 };
 
 

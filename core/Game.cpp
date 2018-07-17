@@ -110,19 +110,27 @@ void Game::main_loop() {
         if (ticks_now > prev_ticks + 1000) {
             prev_ticks = ticks_now;
             fps = frames;
-            std::cout << "FPS: " << fps << std::endl;
+//            std::cout << "FPS: " << fps << std::endl;
             frames = 0;
         }
     }
 }
 
 void Game::update() {
-    for(auto &entity: ECS::entities)
-        *entity->position += entity->velocity->multiply_by_scalar(entity->speed).normalize();
+    for(auto &entity: ECS::entities) {
+//        if(entity->velocity->x != 0 || entity->velocity->y != 0) {
+//            std::cout << "----" <<std::endl;
+//            std::cout << "Vel" << *entity->velocity << std::endl;
+//            std::cout << "VelNorm" << entity->velocity->normalize() << std::endl;
+//            std::cout << "X" << entity->velocity->multiply_by_scalar(entity->speed) << std::endl;
+//        }
+        *entity->position += entity->velocity->normalize().multiply_by_scalar(entity->speed);
+    }
 }
 
 void Game::load(char *game_data_path) {
     File::load_defn(game_data_path, this, definition_file_reader, true);
+    current_scene->set_camera(window_width, window_height);
 }
 
 void Game::definition_file_reader(Game *game, const std::string key, const std::string value) {

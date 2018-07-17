@@ -9,6 +9,7 @@ entity player
 component render
 position_x 0
 position_y 0
+cam_size 0.9
 END map_1
 
 BEGIN player
@@ -26,6 +27,6 @@ END map_1_render
 
 BEGIN player_render
 layer 0
-texture_path assets/textures/player.bmp
+texture_path assets/textures/player/player_r.bmp
 scale 2
 END player_render

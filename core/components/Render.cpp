@@ -6,8 +6,8 @@
 #include "../File.h"
 
 void Render::render() {
-    dst_rect->x = (int) (entity->position->x * entity->speed);
-    dst_rect->y = (int) (entity->position->y * entity->speed);
+    dst_rect->x = (int) entity->position->x;
+    dst_rect->y = (int) entity->position->y;
     SDL_RenderCopy(Game::renderer, texture, NULL, dst_rect);
 }
 

@@ -31,9 +31,16 @@ void Scene::definition_file_reader(Scene *scene, const std::string key, const st
         scene->entities.push_back(entity);
         entity->load((char *) value.c_str());
     }
+    if(key == "cam_size")
+        scene->camera_frame = std::stod(value);
 }
 
 Scene::~Scene() {
     for (auto const &entity: entities)
         delete entity;
+}
+
+void Scene::set_camera(int window_w, int window_h) {
+    camera_w = (int) (window_w * camera_frame);
+    camera_h = (int) (window_h * camera_frame);
 }

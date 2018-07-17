@@ -18,7 +18,7 @@ class Component {
 public:
     virtual ~Component(){};
 
-    const Entity* entity;
+    Entity* entity;
     char* name = nullptr;
     virtual void load(char *_load) {};
 

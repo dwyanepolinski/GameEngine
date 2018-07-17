@@ -17,9 +17,10 @@ public:
     double y = 0;
 
     Vector2D(double _x, double _y) : x(_x), y(_y){};
+    Vector2D(const Vector2D &v);
 
     double len() const;
-    Vector2D &normalize();
+    Vector2D normalize();
     double scalar_vect_multiply(const Vector2D &v) const;
     Vector2D multiply_by_scalar(const double scalar);
 

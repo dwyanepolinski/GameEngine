@@ -29,7 +29,7 @@ Vector2D Vector2D::multiply_by_scalar(const double scalar) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Vector2D &v) {
-    stream << "Vector2D[" << v.x << "," << v.y << "]";
+    stream << "Vector2D(" << v.x << "," << v.y << ")";
     return stream;
 }
 
@@ -51,12 +51,18 @@ Vector2D &Vector2D::operator*=(const Vector2D &v) {
     return *this;
 }
 
-Vector2D &Vector2D::normalize() {
+Vector2D Vector2D::normalize() {
     double length = len();
+    double _x = x, _y = y;
     if(length){
-        x /= length;
-        y /= length;
+        _x /= length;
+        _y /= length;
     }
-    return *this;
+    return Vector2D(_x, _y);
+}
+
+Vector2D::Vector2D(const Vector2D &v) {
+    x = v.x;
+    y = v.y;
 }
 

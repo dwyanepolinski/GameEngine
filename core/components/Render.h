@@ -23,6 +23,9 @@ public:
     char* name = (char *) "render";
     double scale = 1;
 
+    int get_texture_w(){ return texture_width; }
+    int get_texture_h(){ return texture_height; }
+
 private:
     SDL_Rect* dst_rect;
     int texture_width;
