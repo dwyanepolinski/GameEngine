@@ -6,6 +6,7 @@
 #include "File.h"
 #include "components/Render.h"
 #include "components/Control.h"
+#include "components/Collider.h"
 #include <algorithm>
 
 std::vector<Entity *> ECS::entities;
@@ -38,7 +39,8 @@ void Entity::definition_file_reader(Entity *entity, const std::string key, const
             entity->add_component<Render>();
         if (value == "control")
             entity->add_component<Control>();
-        std::cout << "Component " << value << " created" << std::endl;
+        if (value == "collider")
+            entity->add_component<Collider>();
     }
     if (key == "position_x")
         entity->position->x = std::stoi(value);
@@ -48,5 +50,9 @@ void Entity::definition_file_reader(Entity *entity, const std::string key, const
         entity->speed = std::stod(value);
     if (key == "master")
         entity->master = true;
+    if (key == "width")
+        entity->width = std::stoi(value);
+    if (key == "height")
+        entity->height = std::stoi(value);
 }
 

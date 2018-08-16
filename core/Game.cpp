@@ -117,14 +117,9 @@ void Game::main_loop() {
 }
 
 void Game::update() {
-    for(auto &entity: ECS::entities) {
-//        if(entity->velocity->x != 0 || entity->velocity->y != 0) {
-//            std::cout << "----" <<std::endl;
-//            std::cout << "Vel" << *entity->velocity << std::endl;
-//            std::cout << "VelNorm" << entity->velocity->normalize() << std::endl;
-//            std::cout << "X" << entity->velocity->multiply_by_scalar(entity->speed) << std::endl;
-//        }
-        *entity->position += entity->velocity->normalize().multiply_by_scalar(entity->speed);
+    for(auto const& entity: ECS::entities) {
+        for(auto const& component: entity->components)
+            component.second->update();
     }
 }
 

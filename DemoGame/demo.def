@@ -9,7 +9,7 @@ entity player
 component render
 position_x 0
 position_y 0
-cam_size 0.9
+cam_size 0.7
 END map_1
 
 BEGIN player
@@ -19,6 +19,8 @@ position_x 100
 position_y 100
 speed 3
 master 1
+width 30
+height 30
 END player
 
 BEGIN map_1_render

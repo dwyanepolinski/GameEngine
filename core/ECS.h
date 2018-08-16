@@ -19,8 +19,8 @@ public:
     virtual ~Component(){};
 
     Entity* entity;
-    char* name = nullptr;
     virtual void load(char *_load) {};
+    virtual void update() {};
 
 };
 
@@ -34,6 +34,8 @@ public:
     Vector2D* velocity;
     double speed = 0;
     bool master = false;
+    int width = 0;
+    int height = 0;
 
     Entity();
     virtual ~Entity();

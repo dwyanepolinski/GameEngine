@@ -12,7 +12,6 @@
 class Render : public Component{
 
 public:
-    Render();
     ~Render();
     void load(char* _entity_name);
     static void definition_file_reader(Render* render, const std::string key, const std::string value);
@@ -25,6 +24,8 @@ public:
 
     int get_texture_w(){ return texture_width; }
     int get_texture_h(){ return texture_height; }
+
+    void update();
 
 private:
     SDL_Rect* dst_rect;

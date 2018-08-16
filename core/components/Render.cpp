@@ -11,16 +11,10 @@ void Render::render() {
     SDL_RenderCopy(Game::renderer, texture, NULL, dst_rect);
 }
 
-Render::Render() {
-    char* _name = new char[strlen(name)];
-    strcpy(_name, name);
-    name = _name;
-}
-
 Render::~Render() {
     if(texture)
         SDL_DestroyTexture(texture);
-    std::cout << "[*] Component destroyed " << name << std::endl;
+    std::cout << "[*] Component render destroyed " << name << std::endl;
 }
 
 void Render::load(char* _entity_name) {
@@ -38,11 +32,19 @@ void Render::definition_file_reader(Render* render, const std::string key, const
         SDL_QueryTexture(render->texture, NULL, NULL, &render->texture_width, &render->texture_height);
         render->dst_rect->w = render->texture_width;
         render->dst_rect->h = render->texture_height;
+        render->entity->width = render->texture_width;
+        render->entity->height = render->texture_height;
     }
     if(key == "scale") {
         render->scale = std::stod(value);
         render->dst_rect->w *= render->scale;
         render->dst_rect->h *= render->scale;
+        render->entity->width *= render->scale;
+        render->entity->height *= render->scale;
     }
+}
+
+void Render::update() {
+    *entity->position += entity->velocity->normalize().multiply_by_scalar(entity->speed);
 }
 
