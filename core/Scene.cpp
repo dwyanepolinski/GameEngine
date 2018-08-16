@@ -43,7 +43,7 @@ Scene::~Scene() {
         delete entity;
 }
 
-//void Scene::set_camera(int window_w, int window_h) {
-//    camera_w = (int) (window_w * camera_frame);
-//    camera_h = (int) (window_h * camera_frame);
-//}
+void Scene::set_camera(int window_w, int window_h) {
+    camera_w = (int) (window_w * camera_frame);
+    camera_h = (int) (window_h * camera_frame);
+}
