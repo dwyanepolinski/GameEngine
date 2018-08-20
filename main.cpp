@@ -1,7 +1,7 @@
 #include "core/Game.h"
 
 int main(int argc, char **argv) {
-    Game game((char *) "/home/john/ClionProjects/GameEngine/DemoGame/demo.def");
+    Game game((char *) "../DemoGame/demo.def");
     game.main_loop();
 
 //    Entity e, q;

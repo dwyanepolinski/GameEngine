@@ -9,6 +9,7 @@
 #include <cassert>
 #include <vector>
 #include <map>
+#include <typeinfo>
 #include "../math/Vector2D.h"
 
 class Entity;
