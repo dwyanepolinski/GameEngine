@@ -110,7 +110,7 @@ void Game::main_loop() {
         if (ticks_now > prev_ticks + 1000) {
             prev_ticks = ticks_now;
             fps = frames;
-//            std::cout << "FPS: " << fps << std::endl;
+            std::cout << "FPS: " << fps << std::endl;
             frames = 0;
         }
     }

@@ -33,6 +33,7 @@ void Scene::definition_file_reader(Scene *scene, const std::string key, const st
     }
     if(key == "cam_size"){
         scene->camera = new Entity();
+        std::cout<<scene->camera_w;
 //        scene->camera->width =
 //        do camera size, set entity object
     }
