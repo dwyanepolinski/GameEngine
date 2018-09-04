@@ -33,7 +33,7 @@ struct Size{
 
 struct Texture{
     SDL_Texture* texture;
-    SDL_Rect* destignation_rect;
+    SDL_Rect destignation_rect;
     int layer;
 };
 

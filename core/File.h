@@ -6,8 +6,9 @@
 #define GAMEENGINE_FILE_H
 
 
-#include "Scene.h"
+// #include "Scene.h"
 #include "Game.h"
+#include <string>
 #include <fstream>
 
 class File {

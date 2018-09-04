@@ -4,16 +4,23 @@
 
 #include <iostream>
 #include "Game.h"
-#include "File.h"
-#include "components/Control.h"
+#include "ECS/Entity.h"
+#include "ECS/systems/Render.h"
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event *Game::event = new SDL_Event;
-Scene *Game::current_scene = nullptr;
 
-Game::Game(char *path, int x_pos, int y_pos, int width, int height, bool fullscreen) : window_width(width),
-                                                                                       window_height(height),
-                                                                                       game_data_path(path) {
+
+auto _rs = RenderSystem();
+
+Game::Game(char *path,
+           int x_pos,
+           int y_pos,
+           int width,
+           int height,
+           bool fullscreen
+          ) : window_width(width), window_height(height), game_data_path(path) {
+              
     std::cout << "[*] Init game object" << std::endl;
 
     if (SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -41,7 +48,7 @@ Game::Game(char *path, int x_pos, int y_pos, int width, int height, bool fullscr
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     load(game_data_path);
 
-    controllable_entities = ECS::filter_entities<Control>(current_scene->entities);
+//     controllable_entities = ECS::filter_entities<Control>(current_scene->entities);
 
     is_running = true;
     std::cout << "[*] Init complete" << std::endl;
@@ -56,13 +63,13 @@ void Game::handle_events() {
             is_running = false;
             break;
         case SDL_KEYUP: {
-            for (auto const &entity: controllable_entities)
-                entity->get_component<Control>()->keyup(event->key.keysym.sym);
+//             for (auto const &entity: controllable_entities)
+//                 entity->get_component<Control>()->keyup(event->key.keysym.sym);
         }
             break;
         case SDL_KEYDOWN: {
-            for (auto const &entity: controllable_entities)
-                entity->get_component<Control>()->keydown(event->key.keysym.sym);
+//             for (auto const &entity: controllable_entities)
+//                 entity->get_component<Control>()->keydown(event->key.keysym.sym);
         }
             break;
         default:
@@ -72,14 +79,15 @@ void Game::handle_events() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    if (current_scene)
-        current_scene->render();
+    _rs.update(Entity::mask);
+//     if (current_scene)
+//         current_scene->render();
     SDL_RenderPresent(renderer);
 }
 
 Game::~Game() {
-    for (auto const &scene: scenes)
-        delete scene.second;
+//     for (auto const &scene: scenes)
+//         delete scene.second;
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
@@ -90,6 +98,8 @@ void Game::main_loop() {
     unsigned int frame_ticks_start, frame_ticks_stop, ticks_now, frames = 0;
     unsigned int prev_ticks = SDL_GetTicks();
     const int delay = fps_limit ? 1000 / fps_limit : 0;
+    
+    
 
     while (is_running) {
         frame_ticks_start = SDL_GetTicks();
@@ -117,23 +127,49 @@ void Game::main_loop() {
 }
 
 void Game::update() {
-    for(auto const& entity: ECS::entities) {
-        for(auto const& component: entity->components)
-            component.second->update();
-    }
+//     TODO: update all systems
+//     for(auto const& entity: ECS::entities) {
+//         for(auto const& component: entity->components)
+//             component.second->update();
+//     }
+    
+    
 }
 
 void Game::load(char *game_data_path) {
-    File::load_defn(game_data_path, this, definition_file_reader, true);
-    current_scene->set_camera(window_width, window_height);
+//     File::load_defn(game_data_path, this, definition_file_reader, true);
+//     current_scene->set_camera(window_width, window_height);
+    
+//     TODO: poki co to demo, zrobic system ladowania assetow, ustalic legit sposob na trzymanie w pliku
+    
+    auto entity = Entity::create_entity();
+    
+    if(entity == -1){
+        std::cout<<"Out of entities"<<std::endl;
+        return;
+    }
+    
+    Entity::position[entity].x = 0;
+    Entity::position[entity].y = 0;
+    
+    Entity::texture[entity].layer = 1;
+    SDL_Surface *load_file = SDL_LoadBMP((char*) "/home/john/ClionProjects/GameEngine/DemoGame/assets/textures/map_1.bmp");
+    Entity::texture[entity].texture = SDL_CreateTextureFromSurface(Game::renderer, load_file);
+    SDL_FreeSurface(load_file);
+    Entity::texture[entity].destignation_rect.w = 1024;
+    Entity::texture[entity].destignation_rect.h = 768;
+
+    Entity::mask[entity] = Component::COMPONENT_POSITION | Component::COMPONENT_TEXTURE;
+
+    
 }
 
 void Game::definition_file_reader(Game *game, const std::string key, const std::string value) {
     if (key == "init_scene") {
         char *current_scene_name = (char *) value.c_str();
-        game->current_scene = new Scene();
-        game->current_scene->load(current_scene_name);
-        game->scenes.insert(std::make_pair(game->current_scene->name, game->current_scene));
+//         game->current_scene = new Scene();
+//         game->current_scene->load(current_scene_name);
+//         game->scenes.insert(std::make_pair(game->current_scene->name, game->current_scene));
     }
     if (key == "window_title");
         SDL_SetWindowTitle(game->window, value.c_str());

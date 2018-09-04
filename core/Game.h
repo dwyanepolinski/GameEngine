@@ -6,24 +6,30 @@
 #define GAMEENGINE_GAME_H
 
 #include <SDL2/SDL.h>
-#include "Scene.h"
+#include <string>
 
 
 class Game{
 
 public:
-    Game(char *path, int x_pos = SDL_WINDOWPOS_CENTERED, int y_pos = SDL_WINDOWPOS_CENTERED, int width = 800, int height = 600, bool fullscreen = false);
+    Game(char *path,
+         int x_pos = SDL_WINDOWPOS_CENTERED,
+         int y_pos = SDL_WINDOWPOS_CENTERED,
+         int width = 800,
+         int height = 600,
+         bool fullscreen = false);
+    
     ~Game();
 
     void main_loop();
 
     static SDL_Renderer *renderer;
-    static Scene *current_scene;
+//     static Scene *current_scene;
     static SDL_Event *event;
     char* game_data_path;
     const int window_width;
     const int window_height;
-    std::map<char*, Scene*> scenes;
+//     std::map<char*, Scene*> scenes;
 
 
 private:
@@ -31,7 +37,7 @@ private:
     SDL_Window *window;
     unsigned int fps_limit = 0;
     unsigned int fps = 0;
-    std::vector<Entity *> controllable_entities;
+//     std::vector<Entity *> controllable_entities;
 
 
     void handle_events();

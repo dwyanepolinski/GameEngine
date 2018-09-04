@@ -8,23 +8,18 @@
 #define ENTITY_COUNT 20
 
 #include "Component.h"
+#include "../Game.h"
 #include <vector>
 
 
 namespace Entity{
 
-    std::vector<int> mask;
+    std::vector<int> mask(ENTITY_COUNT);
     
-    std::vector<Position> position;
-    std::vector<Displacement> displacement;
-    std::vector<Size> size;
-    std::vector<Texture> texture;
-    
-//     mask.reserve(ENTITY_COUNT);
-//     position.reserve(ENTITY_COUNT);
-//     displacement.reserve(ENTITY_COUNT);
-//     size.reserve(ENTITY_COUNT);
-//     texture.reserve(ENTITY_COUNT);
+    std::vector<Position> position(ENTITY_COUNT);
+    std::vector<Displacement> displacement(ENTITY_COUNT);
+    std::vector<Size> size(ENTITY_COUNT);
+    std::vector<Texture> texture(ENTITY_COUNT);
     
     
     int create_entity(){
