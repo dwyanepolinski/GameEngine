@@ -10,9 +10,6 @@
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event *Game::event = new SDL_Event;
 
-
-auto _rs = RenderSystem();
-
 Game::Game(char *path,
            int x_pos,
            int y_pos,
@@ -79,7 +76,7 @@ void Game::handle_events() {
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    _rs.update(Entity::mask);
+    RenderSystem::render();
 //     if (current_scene)
 //         current_scene->render();
     SDL_RenderPresent(renderer);
