@@ -4,6 +4,7 @@
 #define GAMEENGINE_COMPONENT_H
 
 #include <SDL2/SDL_system.h>
+#include <string>
 
 
 enum Component{
@@ -16,13 +17,11 @@ enum Component{
 
 
 struct Position{
-    double x;
-    double y;
+    vect pos;
 };
 
 struct Displacement{
-    double x;
-    double y;
+    vect vel;
     double v;
 };
 

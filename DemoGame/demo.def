@@ -1,34 +1,15 @@
-BEGIN __GAME__
-fps_limit 60
-init_scene map_1
-window_title DemoGame
-END __GAME__
-
-BEGIN map_1
-entity player
-component render
+ENTITY scene1
 position_x 0
 position_y 0
-cam_size 0.7
-END map_1
-
-BEGIN player
-component render
-component control
+texture /assets/textures/map_1.bmp
+width 1024
+height 768
+layer 1
+ENTITY player1
 position_x 100
 position_y 100
-speed 3
-master 1
+texture /assets/textures/player/player_r.bmp
 width 30
-height 30
-END player
-
-BEGIN map_1_render
-texture_path assets/textures/map_1.bmp
-END map_1_render
-
-BEGIN player_render
-layer 0
-texture_path assets/textures/player/player_r.bmp
-scale 2
-END player_render
+height 60
+speed 0.2
+master 1

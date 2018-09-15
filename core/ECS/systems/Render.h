@@ -16,12 +16,25 @@ namespace RenderSystem{
                 auto texture_component = Entity::texture[entity];
                 auto position_component = Entity::position[entity];
                 
-                texture_component.destignation_rect.x = (int) position_component.x;
-                texture_component.destignation_rect.y = (int) position_component.y;
+                texture_component.destignation_rect.x = (int) position_component.pos.x;
+                texture_component.destignation_rect.y = (int) position_component.pos.y;
                 SDL_RenderCopy(Game::renderer, texture_component.texture, NULL, &texture_component.destignation_rect);
             }
         }
     };
+    
+    void load_texture(unsigned int entity, std::string *texture_path){
+        SDL_Surface *load_file = SDL_LoadBMP(&(Game::project_path + *texture_path)[0]);
+        Entity::texture[entity].texture = SDL_CreateTextureFromSurface(Game::renderer, load_file);
+        SDL_FreeSurface(load_file);
+        SDL_QueryTexture(
+            Entity::texture[entity].texture,
+            NULL,
+            NULL,
+            &Entity::texture[entity].destignation_rect.w,
+            &Entity::texture[entity].destignation_rect.h
+        );
+    }
     
     
 };

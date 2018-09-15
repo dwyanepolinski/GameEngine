@@ -2,33 +2,24 @@ cmake_minimum_required(VERSION 3.7)
 project(GameEngine)
 
 set(CMAKE_CXX_STANDARD 11)
+#set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
+set(CMAKE_BUILD_TYPE Debug)
 
 set(SDL2_LIBRARY /usr/lib/libSDL2.so)
 find_package(SDL2 REQUIRED)
 
 set(SOURCE_FILES main.cpp
+    math/vect.h
+    math/vect.cpp
     core/Game.cpp
     core/Game.h
     core/ECS/Entity.h
     core/ECS/Component.h
     core/ECS/System.h
     core/ECS/systems/Render.h
-#     core/ECS.cpp
-#     core/ECS.h
-#     core/Scene.cpp
-#     core/Scene.h
-#     core/components/Render.cpp
-#     core/components/Render.h
-#     core/File.cpp
-#     core/File.h
-#     core/components/Control.cpp
-#     core/components/Control.h
-#     math/Vector2D.cpp
-#     math/Vector2D.h
-#     core/components/Collider.cpp
-#     core/components/Collider.h
-#     core/Camera.cpp
-#     core/Camera.h
+    core/ECS/systems/File.h
+    core/ECS/systems/Control.h
+    
 )
 add_executable(GameEngine ${SOURCE_FILES})
 
