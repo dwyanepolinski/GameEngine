@@ -5,10 +5,9 @@
 
 #include "../System.h"
 #include "Render.h"
+#include "Texture.h"
 #include <fstream>
 #include <assert.h>
-
-#define NEW_ENTITY "ENTITY"
 
 namespace FileSystem{
     
@@ -20,7 +19,7 @@ namespace FileSystem{
         else if(*key == "position_y")
             Entity::position[entity].pos.y = std::stoi(*value);
         else if(*key == "texture"){
-            RenderSystem::load_texture(entity, value);
+            TextureSystem::set_texture(entity, std::stoi(*value));
             Entity::mask[entity] |= Component::COMPONENT_TEXTURE;
         }
         else if(*key == "width"){
@@ -35,6 +34,10 @@ namespace FileSystem{
         }
         else if(*key == "master")
             Entity::master = entity;
+        else if(*key == "txmap"){
+            TextureSystem::load_map(entity, value);
+            Entity::mask[entity] |= Component::COMPONENT_TXMAP;
+        }
     }
     
     void init(std::string def_file_path){
@@ -49,7 +52,10 @@ namespace FileSystem{
                 entity = Entity::create_entity();
                 assert((entity != -1) && "[CRITICAL] Out of Entities");
                 Entity::mask[entity] = Component::COMPONENT_NONE;
-            } else
+            }
+            else if (key == LOAD_TEXTURE)
+                TextureSystem::load_texture(&value);
+            else
                 init_components(entity, &key, &value);
         }
     }

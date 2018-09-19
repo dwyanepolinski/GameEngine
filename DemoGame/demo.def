@@ -1,15 +1,23 @@
+TEXTURE /assets/textures/map_1.bmp
+TEXTURE /assets/textures/player.bmp
+TEXTURE /assets/textures/map1l.bmp
+
+
 ENTITY scene1
 position_x 0
 position_y 0
-texture /assets/textures/map_1.bmp
+texture 2
+txmap /assets/maps/map1.map
 width 1024
 height 768
 layer 1
+
+
 ENTITY player1
 position_x 100
 position_y 100
-texture /assets/textures/player/player_r.bmp
+texture 1
 width 30
 height 60
-speed 0.2
+speed 1
 master 1

@@ -5,8 +5,6 @@
 
 // tu można wjebac custom allocatory do vectorów
 
-#define ENTITY_COUNT 20
-
 #include "Component.h"
 #include "../Game.h"
 #include <vector>
@@ -21,8 +19,19 @@ namespace Entity{
     std::vector<Displacement> displacement(ENTITY_COUNT);
     std::vector<Size> size(ENTITY_COUNT);
     std::vector<Texture> texture(ENTITY_COUNT);
+    std::vector<Collision> collision(ENTITY_COUNT);
     
     int master = -1;
+    
+//    store textures info
+    struct dim{
+        int w;
+        int h;
+    };
+//    textures db & texture maps
+    std::vector<SDL_Texture*> textures;
+    std::vector<dim> tx_dimensions;
+    std::vector<Map> maps(ENTITY_COUNT);
     
     
     int create_entity(){

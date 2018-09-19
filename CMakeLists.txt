@@ -13,12 +13,14 @@ set(SOURCE_FILES main.cpp
     math/vect.cpp
     core/Game.cpp
     core/Game.h
+    core/Settings.h
     core/ECS/Entity.h
     core/ECS/Component.h
     core/ECS/System.h
     core/ECS/systems/Render.h
     core/ECS/systems/File.h
     core/ECS/systems/Control.h
+    core/ECS/systems/Texture.h
     
 )
 add_executable(GameEngine ${SOURCE_FILES})
