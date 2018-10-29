@@ -11,5 +11,7 @@
 
 #define NEW_ENTITY   "ENTITY"
 #define LOAD_TEXTURE "TEXTURE"
+#define LOAD_ANIMATION_TX "ANIMATION_TX"
+#define LOAD_EVENT "EVENT"
 
 #endif 
