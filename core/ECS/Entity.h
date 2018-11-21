@@ -4,10 +4,7 @@
 #define GAMEENGINE_ENTITY_H
 
 // tu można wjebac custom allocatory do vectorów
-
-#include "Component.h"
 #include "../Game.h"
-#include <vector>
 
 
 namespace Entity{
@@ -23,14 +20,7 @@ namespace Entity{
     
     int master = -1;
     
-//    store textures info
-    struct dim{
-        int w;
-        int h;
-    };
-//    textures db & texture maps
     std::vector<SDL_Texture*> textures;
-    std::vector<dim> tx_dimensions;
     std::vector<Map> maps(ENTITY_COUNT);
     
     
@@ -56,10 +46,5 @@ namespace Entity{
     }
     
 }
-
-
-
-
-
 
 #endif

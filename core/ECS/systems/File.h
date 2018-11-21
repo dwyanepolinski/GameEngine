@@ -3,9 +3,10 @@
 #ifndef GAMEENGINE_FILE_H
 #define GAMEENGINE_FILE_H
 
-#include "../System.h"
-#include "Render.h"
+#pragma once
 #include "Texture.h"
+#include "../Entity.h"
+#include "../System.h"
 #include <fstream>
 #include <assert.h>
 
@@ -34,10 +35,18 @@ namespace FileSystem{
         }
         else if(*key == "master")
             Entity::master = entity;
-        else if(*key == "txmap"){
-            TextureSystem::load_map(entity, value);
-            Entity::mask[entity] |= Component::COMPONENT_TXMAP;
+        else if(*key == "bbox_w"){
+            Entity::collision[entity].bbox_w = std::stoi(*value);
+            Entity::mask[entity] |= Component::COMPONENT_COLLISION;
         }
+        else if(*key == "bbox_h")
+            Entity::collision[entity].bbox_h = std::stoi(*value);
+        else if(*key == "group")
+            Entity::collision[entity].group = std::stoi(*value);
+        // else if(*key == "txmap"){
+        //     TextureSystem::load_map(entity, value);
+        //     Entity::mask[entity] |= Component::COMPONENT_TXMAP;
+        // }
     }
     
     void init(std::string def_file_path){

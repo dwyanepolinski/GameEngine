@@ -1,4 +1,4 @@
-TEXTURE /assets/textures/map_1.bmp
+TEXTURE /assets/textures/map1.bmp
 TEXTURE /assets/textures/player.bmp
 TEXTURE /assets/textures/map1l.bmp
 
@@ -6,8 +6,7 @@ TEXTURE /assets/textures/map1l.bmp
 ENTITY scene1
 position_x 0
 position_y 0
-texture 2
-txmap /assets/maps/map1.map
+texture 0
 width 1024
 height 768
 layer 1
@@ -19,5 +18,36 @@ position_y 100
 texture 1
 width 30
 height 60
-speed 1
+speed 5
 master 1
+bbox_w 30
+bbox_h 60
+group 1
+
+ENTITY cam_bbox_top
+position_x 0
+position_y 0
+bbox_w 800
+bbox_h 50
+group 0
+
+ENTITY cam_bbox_bottom
+position_x 0
+position_y 550
+bbox_w 800
+bbox_h 50
+group 0
+
+ENTITY cam_bbox_left
+position_x 0
+position_y 0
+bbox_w 50
+bbox_h 600
+group 0
+
+ENTITY cam_bbox_right
+position_x 750
+position_y 0
+bbox_w 50
+bbox_h 600
+group 0

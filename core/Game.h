@@ -5,9 +5,14 @@
 #ifndef GAMEENGINE_GAME_H
 #define GAMEENGINE_GAME_H
 
-#include <SDL2/SDL.h>
-#include <string>
+#pragma once
+
+#include "ECS/System.h"
 #include "../math/vect.h"
+#include <iostream>
+#include <chrono>
+
+
 
 
 class Game{
@@ -29,6 +34,9 @@ public:
     
     static std::string def_file_path;
     static std::string project_path;
+    
+    static double dt;
+    double time_resolution = 10000;
 
 
 private:

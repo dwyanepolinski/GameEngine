@@ -9,18 +9,21 @@ set(SDL2_LIBRARY /usr/lib/libSDL2.so)
 find_package(SDL2 REQUIRED)
 
 set(SOURCE_FILES main.cpp
-    math/vect.h
-    math/vect.cpp
     core/Game.cpp
     core/Game.h
+    math/vect.h
+    math/vect.cpp
+    
+    core/Event.h
     core/Settings.h
     core/ECS/Entity.h
     core/ECS/Component.h
     core/ECS/System.h
-    core/ECS/systems/Render.h
-    core/ECS/systems/File.h
-    core/ECS/systems/Control.h
     core/ECS/systems/Texture.h
+    core/ECS/systems/Render.h
+    core/ECS/systems/Control.h
+    core/ECS/systems/Collision.h
+    core/ECS/systems/File.h
     
 )
 add_executable(GameEngine ${SOURCE_FILES})

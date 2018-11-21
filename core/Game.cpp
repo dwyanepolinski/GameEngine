@@ -2,17 +2,22 @@
 // Created by john on 08.05.18.
 //
 
-#include <iostream>
+
 #include "Game.h"
+#include "Event.h"
 #include "ECS/Entity.h"
 #include "ECS/systems/Render.h"
 #include "ECS/systems/File.h"
 #include "ECS/systems/Control.h"
+#include "ECS/systems/Collision.h"
+
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event *Game::event = new SDL_Event;
 std::string Game::def_file_path = "";
 std::string Game::project_path = "";
+double Game::dt = 1;
+
 
 Game::Game(
     std::string _def_file_path,
@@ -68,6 +73,9 @@ void Game::handle_events() {
         default:
             ControlSystem::event_handler(event);
     }
+    // handle sdl events
+    // handle own events
+
 }
 
 void Game::render() {
@@ -90,8 +98,10 @@ void Game::main_loop() {
     const int delay = fps_limit ? 1000 / fps_limit : 0;
 
     while (is_running) {
+        auto t1 = std::chrono::high_resolution_clock::now();
+        
         frame_ticks_start = SDL_GetTicks();
-
+        
         handle_events();
         update();
         render();
@@ -111,11 +121,18 @@ void Game::main_loop() {
             std::cout << "FPS: " << fps << std::endl;
             frames = 0;
         }
+        auto t2 = std::chrono::high_resolution_clock::now();
+        auto elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+        
+        Game::dt = elapsed_time / time_resolution;
+//        std::cout<<elapsed_time / time_resolution<<std::endl;
     }
 }
 
 void Game::update() {
+    EventSystem::update();
     ControlSystem::update();
+    CollisionSystem::update();
 }
 
 void Game::load(std::string def_file_path) {

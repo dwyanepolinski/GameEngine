@@ -4,8 +4,7 @@
 #define GAMEENGINE_COMPONENT_H
 
 #include "../Settings.h"
-#include <SDL2/SDL_system.h>
-#include <string>
+#include "System.h"
 
 
 enum Component{
@@ -14,7 +13,8 @@ enum Component{
     COMPONENT_DISPLACEMENT = 1 << 1,
     COMPONENT_SIZE = 1 << 2,
     COMPONENT_TEXTURE = 1 << 3,
-    COMPONENT_TXMAP = 1 << 4
+    COMPONENT_TXMAP = 1 << 4,
+    COMPONENT_COLLISION = 1 << 5
 };
 
 
@@ -41,16 +41,20 @@ struct Texture{
 };
 
 struct Map{
-    int t[MAX_MAP_SIZE][MAX_MAP_SIZE] = {0};
-    SDL_Rect src_rect[MAX_MAP_SIZE][MAX_MAP_SIZE];
-    SDL_Rect dst_rect[MAX_MAP_SIZE][MAX_MAP_SIZE];
+    int t[MAX_MAP_SIZE * MAX_MAP_SIZE] = {0};
+    SDL_Rect src_rect[MAX_MAP_SIZE * MAX_MAP_SIZE];
+    SDL_Rect dst_rect[MAX_MAP_SIZE * MAX_MAP_SIZE];
 };
 
 struct Collision{
-    int collides;
+    int bbox_w;
+    int bbox_h;
+    int bbox_x;
+    int bbox_y;
+    int layer;
+    int group;
 };
 
-    
 
 
 #endif

@@ -4,3 +4,4 @@ GameEngine.kdev4
 cmake-build-debug/
 build/
 GameEngine.project
+.vscode
