@@ -4,7 +4,6 @@
 
 
 #include "Game.h"
-#include "Event.h"
 #include "ECS/Entity.h"
 #include "ECS/systems/Render.h"
 #include "ECS/systems/File.h"
@@ -16,6 +15,9 @@ SDL_Renderer *Game::renderer = nullptr;
 SDL_Event *Game::event = new SDL_Event;
 std::string Game::def_file_path = "";
 std::string Game::project_path = "";
+unsigned int Game::window_width = 800;
+unsigned int Game::window_heigth = 600;
+bool Game::camera = false;
 double Game::dt = 1;
 
 

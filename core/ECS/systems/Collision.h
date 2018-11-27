@@ -8,24 +8,39 @@ namespace CollisionSystem{
 
 #define COLLISION_MASK (COMPONENT_POSITION|COMPONENT_COLLISION)
 
-    void collided(unsigned int first_entity, unsigned int second_entity){
+    namespace _private{
+        std::list<unsigned int> collidables;
+        int cam_bbox_top = -1;
+        int cam_bbox_bottom = -1;
+        int cam_bbox_left = -1; 
+        int cam_bbox_right = -1;
+    }
+
+    unsigned int COLLISION_EVENT = 0;
+
+    void add_entity(unsigned int entity){
+        if((Entity::mask[entity] & COMPONENT_POSITION) != COMPONENT_POSITION)
+            return;
+        if((Entity::mask[entity] & COLLISION_MASK) != COLLISION_MASK)
+            Entity::mask[entity] |= Component::COMPONENT_COLLISION;
+        _private::collidables.emplace_back(entity);
+    }
+
+    void check_collision(unsigned int first_entity, unsigned int second_entity){
         bool condition1 = Entity::position[first_entity].pos.x < Entity::position[second_entity].pos.x + Entity::collision[second_entity].bbox_w;
         bool condition2 = Entity::position[first_entity].pos.x + Entity::collision[first_entity].bbox_w > Entity::position[second_entity].pos.x;
         bool condition3 = Entity::position[first_entity].pos.y < Entity::position[second_entity].pos.y  + Entity::collision[second_entity].bbox_h;
         bool condition4 = Entity::position[first_entity].pos.y + Entity::collision[first_entity].bbox_h > Entity::position[second_entity].pos.y;
 
         if(condition1 && condition2 && condition3 && condition4)
-            EventSystem::register_event(0, 1, first_entity, second_entity);
-            // std::cout<<"COLLISION "<<first_entity<<" "<<second_entity<<std::endl;
+            EventSystem::register_event(COLLISION_EVENT, first_entity, second_entity);
     }
 
     void update(){
-        for(unsigned int entity = 0; entity < ENTITY_COUNT; entity++){
-            if((Entity::mask[entity] & COLLISION_MASK) == COLLISION_MASK){
-                for(unsigned int other_entity = 0; other_entity < ENTITY_COUNT; other_entity++){
-                    if((Entity::mask[other_entity] & COLLISION_MASK) == COLLISION_MASK && entity != other_entity && Entity::collision[entity].group != Entity::collision[other_entity].group)
-                        collided(entity, other_entity);
-                }
+        for(auto const& col_1 : _private::collidables){
+            for(auto const& col_2 : _private::collidables){
+                if(col_1 != col_2 && Entity::collision[col_1].group != Entity::collision[col_2].group)
+                    check_collision(col_1, col_2);
             }
         }
     }

@@ -66,3 +66,8 @@ vect::vect(const vect &v) {
     y = v.y;
 }
 
+void vect::zero(){
+    x = 0;
+    y = 0;
+}
+

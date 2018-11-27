@@ -10,18 +10,18 @@ namespace EventSystem{
         unsigned int type;
         int entity = -1;
         int second_entity = -1;
-        unsigned int state = 0;
+        bool alive = false;
     };
 
     unsigned int max_id = 0;
     std::vector<BaseEvent> events(MAX_EVENTS);
 
-    int register_event(unsigned int type, unsigned int state, unsigned int entity, int second_entity = -1){
+    int register_event(unsigned int type, unsigned int entity, int second_entity = -1){
         for(unsigned int id = 0; id < MAX_EVENTS; id++){
-            if(!events[id].state){
+            if(!events[id].alive){
                 events[id].type = type;
                 events[id].entity = entity;
-                events[id].state = state;
+                events[id].alive = true;
                 events[id].second_entity = second_entity;
                 if(id > max_id)
                     max_id = id;
@@ -31,26 +31,30 @@ namespace EventSystem{
         return -1;
     }
 
-    void drop_event(unsigned int id){
-        if(id > MAX_EVENTS - 1 && events[id].state)
+    void kill_event(unsigned int id){
+        if(id > MAX_EVENTS - 1 && events[id].alive)
             return;
-        events[id].state = 0;
+        events[id].alive = false;
+        if(id = max_id){
+            for(unsigned int idx = max_id - 1; idx >= 0 ; idx--){
+                if(events[idx].alive){
+                    max_id = idx;
+                    return;
+                }
+            }
+            max_id = 0;
+        }
     }
 
     void update(){
         if(!max_id)
             return;
 
-        unsigned int range = max_id + 1;
-        unsigned int last_alive = 0;
-
-        for(unsigned int id = 0; id < range; id++)
-            if(events[id].state > 0){
-                events[id].state--;
-                if(events[id].state)
-                    last_alive = id;
+        for(unsigned int id = 0; id < max_id + 1; id++)
+            if(events[id].alive){
+                events[id].alive = false;
             }
-        max_id = last_alive;
+        max_id = 0;
     }
 
 }

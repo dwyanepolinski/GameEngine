@@ -6,6 +6,7 @@
 // #include "../Event.h"
 #include <string>
 #include <vector>
+#include <list>
 #include "../../math/vect.h"
 #include <SDL2/SDL.h>
 #include "Component.h"

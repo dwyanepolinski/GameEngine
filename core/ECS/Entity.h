@@ -5,6 +5,8 @@
 
 // tu można wjebac custom allocatory do vectorów
 #include "../Game.h"
+#include "../Event.h"
+
 
 
 namespace Entity{

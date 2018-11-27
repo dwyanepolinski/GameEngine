@@ -9,7 +9,10 @@
 
 //file reader settings
 
-#define NEW_ENTITY   "ENTITY"
-#define LOAD_TEXTURE "TEXTURE"
+#define NEW_ENTITY     "ENTITY"
+#define LOAD_TEXTURE   "TEXTURE"
+#define WINDOW_WIDTH   "WW"
+#define WINDOW_HEIGHT  "WH"
+#define CAMERA_ENABLED "CAM"
 
 #endif 

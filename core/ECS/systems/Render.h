@@ -11,6 +11,15 @@
 namespace RenderSystem{
     
 #define RENDER_MASK (COMPONENT_POSITION|COMPONENT_TEXTURE)
+
+    namespace _private{
+        std::list<unsigned int> renderables;
+    }
+
+    void add_entity(unsigned int entity){
+        if((Entity::mask[entity] & RENDER_MASK) == RENDER_MASK)
+            _private::renderables.emplace_back(entity);    
+    }
     
     void render_texture(unsigned int entity){
         auto texture_component = Entity::texture[entity];
@@ -22,11 +31,8 @@ namespace RenderSystem{
     }
     
     void render(){
-        
-        for(unsigned int entity = 0; entity < ENTITY_COUNT; entity++){
-            if((Entity::mask[entity] & RENDER_MASK) == RENDER_MASK)
-                render_texture(entity);
-        }
+        for(auto const& r : _private::renderables)
+            render_texture(r);
     };
     
 };

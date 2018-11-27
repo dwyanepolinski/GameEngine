@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "../Entity.h"
 #include "../System.h"
+#include "Collision.h"
 #include <fstream>
 #include <assert.h>
 
@@ -21,7 +22,7 @@ namespace FileSystem{
             Entity::position[entity].pos.y = std::stoi(*value);
         else if(*key == "texture"){
             TextureSystem::set_texture(entity, std::stoi(*value));
-            Entity::mask[entity] |= Component::COMPONENT_TEXTURE;
+            RenderSystem::add_entity(entity);
         }
         else if(*key == "width"){
             Entity::size[entity].w = Entity::texture[entity].destignation_rect.w = std::stoi(*value);
@@ -37,16 +38,20 @@ namespace FileSystem{
             Entity::master = entity;
         else if(*key == "bbox_w"){
             Entity::collision[entity].bbox_w = std::stoi(*value);
-            Entity::mask[entity] |= Component::COMPONENT_COLLISION;
+            CollisionSystem::add_entity(entity);
         }
         else if(*key == "bbox_h")
             Entity::collision[entity].bbox_h = std::stoi(*value);
         else if(*key == "group")
             Entity::collision[entity].group = std::stoi(*value);
-        // else if(*key == "txmap"){
-        //     TextureSystem::load_map(entity, value);
-        //     Entity::mask[entity] |= Component::COMPONENT_TXMAP;
-        // }
+        else if(*key == "cbbt")
+            CollisionSystem::_private::cam_bbox_top = entity;
+        else if(*key == "cbbb")
+            CollisionSystem::_private::cam_bbox_bottom = entity;
+        else if(*key == "cbbl")
+            CollisionSystem::_private::cam_bbox_left = entity;
+        else if(*key == "cbbr")
+            CollisionSystem::_private::cam_bbox_right = entity;
     }
     
     void init(std::string def_file_path){
@@ -64,6 +69,12 @@ namespace FileSystem{
             }
             else if (key == LOAD_TEXTURE)
                 TextureSystem::load_texture(&value);
+            else if (key == WINDOW_WIDTH)
+                Game::window_width = std::stoi(value);
+            else if (key == WINDOW_HEIGHT)
+                Game::window_heigth = std::stoi(value);
+            else if (key == CAMERA_ENABLED)
+                Game::camera = (bool) std::stoi(value);
             else
                 init_components(entity, &key, &value);
         }

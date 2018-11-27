@@ -20,6 +20,9 @@ namespace TextureSystem{
     }
     
     void set_texture(unsigned int entity, unsigned int texture_id){
+        if((Entity::mask[entity] & COMPONENT_TEXTURE) != COMPONENT_TEXTURE)
+            Entity::mask[entity] |= Component::COMPONENT_TEXTURE;
+
         Entity::texture[entity].texture = Entity::textures[texture_id];
         Entity::texture[entity].texture_id = texture_id;
         if((Entity::mask[entity] & COMPONENT_SIZE) == COMPONENT_SIZE){

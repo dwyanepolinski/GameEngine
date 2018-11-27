@@ -34,6 +34,10 @@ public:
     
     static std::string def_file_path;
     static std::string project_path;
+
+    static unsigned int window_width;
+    static unsigned int window_heigth;
+    static bool camera;
     
     static double dt;
     double time_resolution = 10000;

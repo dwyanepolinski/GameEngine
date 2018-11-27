@@ -24,6 +24,7 @@ public:
     vect normalize();
     double scalar_vect_multiply(const vect &v) const;
     vect multiply_by_scalar(const double scalar);
+    void zero();
 
     vect operator+(const vect &v);
     vect operator-(const vect &v);
