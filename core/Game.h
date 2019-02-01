@@ -7,7 +7,7 @@
 #include "ECS/System.h"
 #include "../math/vect.h"
 #include <iostream>
-
+#include<chrono>
 class Game
 {
 
@@ -26,6 +26,7 @@ class Game
     static SDL_Renderer *renderer;
     static std::string def_file_path;
     static std::string project_path;
+    static double dt;
 
   private:
     bool is_running = false;

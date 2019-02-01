@@ -35,6 +35,9 @@ std::vector<dim> anim_tx_dim;
 //  events animations
 std::vector<std::vector<Event>> events(ENTITY_COUNT);
 
+//events params
+std::vector<std::vector<anim_params>> animation_params(ENTITY_COUNT);
+
 int create_entity()
 {
 

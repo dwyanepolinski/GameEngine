@@ -47,6 +47,9 @@ void init_components(unsigned int entity, const std::string &key, const std::str
         TextureSystem::set_anim_texture(entity, std::stoi(value));
         Entity::mask[entity] |= COMPONENT_ANIMATION;
     }
+    else if (key == "anim_params"){
+        //Entity::animation_params[entity][Entity::events[entity].size()-1]
+    }
 }
 
 void init(const std::string &def_file_path)

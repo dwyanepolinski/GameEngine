@@ -13,6 +13,7 @@
 SDL_Renderer *Game::renderer = nullptr;
 std::string Game::def_file_path = "";
 std::string Game::project_path = "";
+double Game::dt = 1.0;
 
 Game::Game(
     std::string _def_file_path,
@@ -41,7 +42,7 @@ Game::Game(
         std::exit(EXIT_FAILURE);
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window, -1, 0);//SDL_RENDERER_PRESENTVSYNC);
 
     if (!renderer)
     {
@@ -103,6 +104,7 @@ void Game::main_loop()
 
     while (is_running)
     {
+        auto t0 = std::chrono::high_resolution_clock::now();
         frame_ticks_start = SDL_GetTicks();
 
         handle_events();
@@ -124,9 +126,13 @@ void Game::main_loop()
         {
             prev_ticks = ticks_now;
             fps = frames;
-            std::cout << "FPS: " << fps << std::endl;
+     //       std::cout << "FPS: " << fps << std::endl;
             frames = 0;
         }
+
+        auto t1 = std::chrono::high_resolution_clock::now();
+        Game::dt = std::chrono::duration<double,std::milli>(t1-t0).count();
+        std::cout<<"dt: "<<Game::dt<<'\n';
     }
 }
 
