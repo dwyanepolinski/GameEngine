@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/GameEngine.dir/main.cpp.o CMakeFiles/GameEngine.dir/math/vect.cpp.o  -o GameEngine /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 

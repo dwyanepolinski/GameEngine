@@ -1,26 +1,7 @@
-#include "core/Game.h"
+#include "core/game.h"
 
 int main(int argc, char **argv) {
-    Game game((char *) "../DemoGame/demo.def");
-    game.main_loop();
-
-//    Entity e, q;
-//
-//    e.add_component<Render>();
-//    q.add_component<Render>();
-//
-//    e.get_component<Render>()->layer = 1;
-//    q.get_component<Render>()->layer = 0;
-//
-//    e.id = 0;
-//    q.id = 1;
-//
-//    Scene sc;
-//
-//    sc.add_entity(&e);
-//    sc.add_entity(&q);
-//
-//    sc.show();
-
+    Game game("");
+    game.run();
     return 0;
 }

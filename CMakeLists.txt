@@ -5,26 +5,24 @@ set(CMAKE_CXX_STANDARD 11)
 #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
 set(CMAKE_BUILD_TYPE Debug)
 
-set(SDL2_LIBRARY /usr/lib/libSDL2.so)
+set(SDL2_LIBRARY /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0)
 find_package(SDL2 REQUIRED)
 
-set(SOURCE_FILES main.cpp
-    core/Game.cpp
-    core/Game.h
+set(SOURCE_FILES
+    main.cpp
+    core/event.h
+    core/context.h
+    core/ilist.h
+    core/game.h
     math/vect.h
     math/vect.cpp
     
-    core/Event.h
-    core/Settings.h
-    core/ECS/Entity.h
-    core/ECS/Component.h
-    core/ECS/System.h
-    core/ECS/systems/Texture.h
-    core/ECS/systems/Render.h
-    core/ECS/systems/Control.h
-    core/ECS/systems/Collision.h
-    core/ECS/systems/File.h
-    
+    core/ecs/manager.h
+    core/ecs/base/entity.h
+    core/ecs/base/component.h
+    core/ecs/base/system.h
+
+    core/ecs/systems/render.h
 )
 add_executable(GameEngine ${SOURCE_FILES})
 
