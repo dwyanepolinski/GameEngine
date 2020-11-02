@@ -193,10 +193,10 @@ namespace ComponentManager {
         };
 
         IList<IList<Component*>*> component_entity_rel;
-        GameContext ctx;
+        GameContext* ctx;
     }
 
-    void init(const GameContext c) {
+    void init(GameContext* c) {
         // component_entity_rel = IList<IList<Component*>*>();
         ctx = c;
     }

@@ -8,10 +8,10 @@ class Entity;
 namespace EntityManager {
     namespace {
         IList<Entity*> entities;
-        GameContext ctx;
+        GameContext* ctx;
     }
 
-    void init(const GameContext c) {
+    void init(GameContext *c) {
         // entities = IList<Entity*>();
         ctx = c;
     }

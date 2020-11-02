@@ -22,7 +22,9 @@ class GameContext {
 
     SDL_Event*    sdl_event;
 
-    GameContext() { assert(0 && "Cant init GameContext, not enough arguments"); }
+    GameContext() { 
+        assert(0 && "Cant init GameContext, not enough arguments"); 
+    }
     GameContext(const std::string wd) {
         working_directory = wd;
         window_width = 800;
@@ -45,6 +47,7 @@ class GameContext {
     void init_sdl() {
         _window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, window_width, window_height, fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
         _renderer = SDL_CreateRenderer(_window, -1, 0);
+        sdl_event = new SDL_Event;
         SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
     }
 

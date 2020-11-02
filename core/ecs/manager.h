@@ -12,14 +12,14 @@
 namespace ECSManager {
 
     IList<SDL_Texture*> textures_db;
-    GameContext ctx;
+    GameContext* ctx;
 
     namespace {
         Entity* current_entity = nullptr;
         Component* current_component = nullptr;
     }
 
-    void init(const GameContext c) {
+    void init(GameContext* c) {
         textures_db = IList<SDL_Texture*>();
         ctx = c;
 
@@ -30,7 +30,7 @@ namespace ECSManager {
 
     void load_texture(std::string file) {
         SDL_Surface *load_file = SDL_LoadBMP(&(file)[0]);
-        auto texture = SDL_CreateTextureFromSurface(ctx.renderer(), load_file);
+        auto texture = SDL_CreateTextureFromSurface(ctx->renderer(), load_file);
         textures_db.add(texture);
         SDL_FreeSurface(load_file);
     }

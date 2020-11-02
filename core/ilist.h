@@ -4,18 +4,22 @@
 #include <vector>
 
 // Noop deleter
-template <typename T> struct destructor {
-   void operator()(T& ptr) {}
-};
+// template <typename T> struct destructor {
+//    void operator()(T& ptr) {
+//        int x = 1;
+//    }
+// };
 
 // deleter for pointers
-template <typename T> struct destructor<T*> {
-   void operator()(T* ptr) { delete ptr; }
-};
+// template <typename T> struct destructor<T*> {
+//    void operator()(T* ptr) { 
+//        delete ptr; 
+//        }
+// };
 
 template<class T> class IListNode {
     int id;
-    using destructor_T = destructor<T>;
+    // using destructor_T = destructor<T>;
 
     public:
     T value;
@@ -24,9 +28,10 @@ template<class T> class IListNode {
         this->id = id;
     }
 
-    ~IListNode() {
-        destructor_T(this->value);
-    }
+    // ~IListNode() {
+        // int x = 1;
+        // destructor_T()(this->value);
+    // }
 
     int get_id() { return this->id; }
 
@@ -42,8 +47,9 @@ template<class T> class IList {
     IList() = default;
 
     ~IList() {
-        for(int i = 0; i < nodes.size(); i++)
-            delete nodes[i];
+        for(auto current_node: nodes) {
+            delete current_node;
+        }
         nodes.clear();
     }
 
@@ -65,8 +71,9 @@ template<class T> class IList {
 
     const int add(T e) {
         int new_id = gen_id(nodes.size());
-        IListNode<T> node(new_id);
-        node.value = e;
+        // IListNode<T> node(new_id);
+        auto node = new IListNode<T>(new_id);
+        node->value = e;
         nodes.emplace_back(node);
         return new_id;
     }
@@ -86,8 +93,8 @@ template<class T> class IList {
             e_id = id;
         }
         if(e_id >= 0) {
-            IListNode<T> node = IListNode<T>(e_id);
-            node.value = e;
+            auto node = new IListNode<T>(e_id);
+            node->value = e;
             nodes.emplace_back(node);
             node_positions[e_id] = nodes.size() - 1;
             return true;

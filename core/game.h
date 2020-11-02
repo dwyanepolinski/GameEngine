@@ -2,20 +2,24 @@
 #define GAME_H
 
 #include "context.h"
-#include "ecs/manager.h"
+#include "ecs/systems/render.h"
 
 
 class Game{
 
-    GameContext ctx;
+    GameContext* ctx;
     unsigned int fps_limit = 0;
     unsigned int fps = 0;
     bool is_running = false;
 
-    void handle_events() {
-        SDL_PollEvent(ctx.sdl_event);
+    void start_systems() {
+        new RenderSystem();
+    }
 
-        switch (ctx.sdl_event->type) {
+    void handle_events() {
+        SDL_PollEvent(ctx->sdl_event);
+
+        switch (ctx->sdl_event->type) {
             case SDL_QUIT:
                 is_running = false;
                 break;
@@ -29,6 +33,7 @@ class Game{
     }
 
     void loop() {
+        ctx->init_sdl();
         while(is_running) {
             handle_events();
             update();
@@ -38,18 +43,20 @@ class Game{
 
 public:
     Game(std::string wd) {
-        ctx = GameContext(wd);
+        ctx = new GameContext(wd);
     }
 
     ~Game() {
-        SDL_DestroyWindow(ctx.window());
-        SDL_DestroyRenderer(ctx.renderer());
+        SDL_DestroyWindow(ctx->window());
+        SDL_DestroyRenderer(ctx->renderer());
         SDL_Quit();
         SystemManager::destroy();
+        delete ctx;
     }
 
     void run() {
         ECSManager::init(ctx);
+        start_systems();
         is_running = true; 
         loop(); 
     }

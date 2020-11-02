@@ -13,21 +13,18 @@ class SystemInterface {
 
     public:
 
-    virtual ~SystemInterface();
+    virtual ~SystemInterface() {};
     const int id() { return _id; }
     const int mask() { return _mask; }
     virtual void handle_events() = 0;
     virtual void update() = 0;
 };
 
-class System;
-
-
 namespace SystemManager {
     namespace {
         std::vector<SystemInterface*> systems;
         std::vector<std::vector<int>> system_entity_rel;
-        GameContext ctx;
+        GameContext* ctx;
     }
 
     void destroy() {
@@ -65,7 +62,7 @@ namespace SystemManager {
         }
     }
 
-    void init(const GameContext c) {
+    void init(GameContext *c) {
         // system_entity_rel = std::vector<std::vector<int>>();
         ctx = c;
     }
