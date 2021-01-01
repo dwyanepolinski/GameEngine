@@ -86,6 +86,10 @@ class System: public SystemInterface {
         SystemManager::system_entity_rel.emplace_back(std::vector<int>());
         _id = SystemManager::systems.size() - 1;
     }
+
+    bool idle() {
+        return SystemManager::get_system_entities(_id).size() == 0;
+    }
 };
 
 #endif

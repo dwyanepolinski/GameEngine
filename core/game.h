@@ -3,7 +3,9 @@
 
 #include "context.h"
 #include "ecs/systems/render.h"
+#include "ecs/systems/control.h"
 #include <fstream>
+#include <chrono>
 
 
 class Game{
@@ -15,6 +17,7 @@ class Game{
 
     void start_systems() {
         new RenderSystem();
+        new ControlSystem();
     }
 
     void handle_events() {
@@ -34,9 +37,21 @@ class Game{
     }
 
     void loop() {
+        using clock = std::chrono::high_resolution_clock;
+        using milliseconds = std::chrono::milliseconds;
+        using std::chrono::duration_cast;
+
+        auto start = clock::now(), end = clock::now();
+
         while(is_running) {
+            ctx->set_dt(duration_cast<milliseconds>(end - start).count());
+            start = clock::now();
+
             handle_events();
             update();
+
+            end = clock::now();
+            std::cout<<ctx->dt()<<std::endl;
         }
     }
 

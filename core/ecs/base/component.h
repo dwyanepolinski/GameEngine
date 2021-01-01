@@ -52,7 +52,7 @@ class PositionComponent: public Component {
 
 class DisplacementComponent: public Component {
     const int id = Components::DISPLACEMENT;
-    enum Vars { V = 0 };
+    enum Vars { V = 0, CONTROL = 1 };
 
     public:
 
@@ -62,6 +62,10 @@ class DisplacementComponent: public Component {
             v = std::stof(value);
             return true;    
         }
+        case Vars::CONTROL: {
+            controllable = (bool)std::stoi(value);
+            return true;    
+        }
         default:
             return false;
         }
@@ -69,6 +73,7 @@ class DisplacementComponent: public Component {
 
     vect velocity;
     double v;
+    bool controllable = false;
 };
 
 class SizeComponent: public Component {

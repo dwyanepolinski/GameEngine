@@ -15,7 +15,7 @@ class GameContext {
     
     std::string working_directory;
     unsigned int window_width, window_height;
-    double dtime;
+    uint64_t dtime;
     bool fullscreen;
 
     public:
@@ -53,9 +53,9 @@ class GameContext {
 
     SDL_Renderer* renderer() { return _renderer; } 
     SDL_Window* window() { return _window; }
-    const std::string   get_wd() { return working_directory; }
-    const double        dt() { return dtime; }
-    void  set_dt(const double dtime) { this->dtime = dtime; }
+    const std::string get_wd() { return working_directory; }
+    const uint64_t dt() { return dtime; }
+    void set_dt(const uint64_t dtime) { this->dtime = dtime; }
 
 };
 
