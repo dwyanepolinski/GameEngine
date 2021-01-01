@@ -83,8 +83,8 @@ template<class T> class IList {
             return false;
         int e_id = -1, node_positions_size = node_positions.size();
         if(id >= node_positions_size) {
-            int todo = node_positions_size - id;
-            while(--todo) 
+            int todo = id - node_positions_size;
+            while(todo--) 
                 node_positions.push_back(-1);
             node_positions.push_back(id);
             e_id = id;
@@ -111,7 +111,7 @@ template<class T> class IList {
     }
 
     bool exists(const int id) {
-        return (0 <= id < node_positions.size()) && node_positions[id] == -1;
+        return 0 <= id && id < node_positions.size() && node_positions[id] != -1;
     }
 
     T operator[](int id) { return nodes[node_positions[id]]->value; }

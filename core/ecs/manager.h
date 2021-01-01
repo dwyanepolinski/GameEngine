@@ -29,7 +29,7 @@ namespace ECSManager {
     }
 
     void load_texture(std::string file) {
-        SDL_Surface *load_file = SDL_LoadBMP(&(file)[0]);
+        SDL_Surface *load_file = SDL_LoadBMP(&(ctx->get_wd() + file)[0]);
         auto texture = SDL_CreateTextureFromSurface(ctx->renderer(), load_file);
         textures_db.add(texture);
         SDL_FreeSurface(load_file);
@@ -69,14 +69,20 @@ namespace ECSManager {
     }
 
     void set(const int variable, const std::string value) {
+        if(current_entity != nullptr && current_component != nullptr) {
+            bool set_successfull = current_component->set(variable, value);
+            if(set_successfull)
+                return;
+            current_component = nullptr;
+        }
         switch (variable) {
         case ATEXTURE: {
             load_texture(value);
-            break;
+            return;
         }
         case AENTITY: {
             current_entity = new Entity(value);
-            break;
+            return;
         }
         case ACOMPONENT: {
             if(current_entity != nullptr) {
@@ -86,13 +92,10 @@ namespace ECSManager {
                 if(c != nullptr)
                     current_component = c;
             }
-            break;
+            return;
         }
-        default: {
-            if(current_entity != nullptr)
-                current_component->set(variable, value);
-            break;
-        }
+        default: 
+            return;
         }
     }
 }

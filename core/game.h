@@ -3,6 +3,7 @@
 
 #include "context.h"
 #include "ecs/systems/render.h"
+#include <fstream>
 
 
 class Game{
@@ -33,10 +34,21 @@ class Game{
     }
 
     void loop() {
-        ctx->init_sdl();
         while(is_running) {
             handle_events();
             update();
+        }
+    }
+
+    void load() {
+        std::ifstream game_file(ctx->get_wd() + "/demo.def");
+        std::string x = ctx->get_wd() + "/demo.def";
+        std::string key, value;
+
+        assert(game_file.is_open() && "[CRITICAL] Error reading game file");
+
+        while (game_file >> key >> value) {
+            ECSManager::set(std::stoi(key), value);
         }
     }
 
@@ -57,6 +69,8 @@ public:
     void run() {
         ECSManager::init(ctx);
         start_systems();
+        ctx->init_sdl();
+        load();
         is_running = true; 
         loop(); 
     }

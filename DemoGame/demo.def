@@ -2,67 +2,38 @@
 0 /assets/textures/player.bmp
 0 /assets/textures/map1l.bmp
 
-WW 800
-WH 600
-CAM 1
-
 1 scene1
 2 1
 0 0
 1 0
-texture 0
-width 1024
-height 768
-layer 1
+-1 0
+2 8
+0 960
+1 640
+2 0
+3 0
+-1 0
+2 4
+0 960
+1 640
+-1 0
 
 
 1 player1
 2 1
 0 100
 1 100
+-1 0
 2 2
 0 5
+-1 0
 2 4
 0 30
 1 60
+-1 0
 2 8
 0 30
 1 60
 2 1
 3 0
-master 1
-bbox_w 30
-bbox_h 60
-group 1
 
-ENTITY cam_bbox_top
-position_x 0
-position_y 0
-bbox_w 800
-bbox_h 50
-group 0
-cbbt 1
-
-ENTITY cam_bbox_bottom
-position_x 0
-position_y 550
-bbox_w 800
-bbox_h 50
-group 0
-cbbb 1
-
-ENTITY cam_bbox_left
-position_x 0
-position_y 0
-bbox_w 50
-bbox_h 600
-group 0
-cbbl 1
-
-ENTITY cam_bbox_right
-position_x 750
-position_y 0
-bbox_w 50
-bbox_h 600
-group 0
-cbbr 1

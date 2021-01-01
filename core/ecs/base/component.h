@@ -19,7 +19,7 @@ namespace Components {
 class Component {
     public:
 
-    virtual void set(const int variable, std::string value) {};
+    virtual bool set(const int variable, std::string value) {};
 };
 
 typedef Component* ComponentCreator();
@@ -32,18 +32,18 @@ class PositionComponent: public Component {
 
     public:
 
-    void set(const int variable, std::string value) {
+    bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::X: {
             coordinates.x = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::Y: {
             coordinates.y = std::stoi(value);
-            break;    
+            return true;    
         }
         default:
-            break;
+            return false;
         }
     }
 
@@ -56,14 +56,14 @@ class DisplacementComponent: public Component {
 
     public:
 
-    void set(const int variable, std::string value) {
+    bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::V: {
             v = std::stof(value);
-            break;    
+            return true;    
         }
         default:
-            break;
+            return false;
         }
     }
 
@@ -77,18 +77,18 @@ class SizeComponent: public Component {
 
     public:
 
-    void set(const int variable, std::string value) {
+    bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::W: {
             w = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::H: {
             h = std::stoi(value);
-            break;    
+            return true;    
         }
         default:
-            break;
+            return false;
         }
     }
 
@@ -103,26 +103,26 @@ class TextureComponent: public Component {
 
     public:
 
-    void set(const int variable, std::string value) {
+    bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::W: {
             dst_rect.w = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::H: {
             dst_rect.h = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::TEXTURE: {
             texture_id = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::LAYER: {
             layer = std::stoi(value);
-            break;    
+            return true;    
         }
         default:
-            break;
+            return false;
         }
     }
 
@@ -145,34 +145,34 @@ class CollisionComponent: public Component {
 
     public:
 
-    void set(const int variable, std::string value) {
+    bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::BBX: {
             bbx = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::BBY: {
             bby = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::BBW: {
             bbw = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::BBH: {
             bbh = std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::BB_INHERIT_SIZE: {
             bb_inherit_size = (bool)std::stoi(value);
-            break;    
+            return true;    
         }
         case Vars::GROUP: {
             group = std::stoi(value);
-            break;    
+            return true;    
         }
         default:
-            break;
+            return false;
         }
     }
 

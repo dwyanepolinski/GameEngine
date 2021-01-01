@@ -5,10 +5,9 @@
 
 
 class SystemInterface {
-    const int _mask = 0;
-
     protected:
 
+    int _mask = 0;
     int _id; 
 
     public:
@@ -34,7 +33,7 @@ namespace SystemManager {
     }
 
     const std::vector<int> get_system_entities(const int system_id) {
-        if(!(0 <= system_id < systems.size()))
+        if(!(0 <= system_id && system_id < system_entity_rel.size()))
             return std::vector<int>();
         return system_entity_rel[system_id];
     }
@@ -43,22 +42,22 @@ namespace SystemManager {
         for(int system_id = 0; system_id < systems.size(); system_id++) {
             auto system_mask = systems[system_id]->mask();
             auto system_entities = system_entity_rel[system_id];
-            bool is_to_pair = (entity_mask & system_mask) == system_mask;
-            bool is_paired = false;
-            int is_paired_position;
+            bool is_paired_mask = (entity_mask & system_mask) == system_mask;
+            bool is_paired_rel = false;
+            int is_paired_rel_position;
 
             for(int index = 0; index < system_entities.size(); index++) {
                 if(system_entities[index] == entity_id) {
-                    is_paired = true;
-                    is_paired_position = index;
+                    is_paired_rel = true;
+                    is_paired_rel_position = index;
                     break;
                 }
             }
 
-            if(!is_paired && is_to_pair)
+            if(!is_paired_rel && is_paired_mask)
                 system_entity_rel[system_id].emplace_back(entity_id);
-            else if(is_paired && !is_to_pair)
-                system_entity_rel[system_id].erase(system_entity_rel[system_id].begin() + is_paired_position);
+            else if(is_paired_rel && !is_paired_mask)
+                system_entity_rel[system_id].erase(system_entity_rel[system_id].begin() + is_paired_rel_position);
         }
     }
 
@@ -84,6 +83,7 @@ class System: public SystemInterface {
 
     System(){
         SystemManager::systems.emplace_back(this);
+        SystemManager::system_entity_rel.emplace_back(std::vector<int>());
         _id = SystemManager::systems.size() - 1;
     }
 };

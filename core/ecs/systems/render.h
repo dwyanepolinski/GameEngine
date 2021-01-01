@@ -5,9 +5,11 @@
 
 
 class RenderSystem: public System {
-    const int _mask = (Components::POSITION|Components::TEXTURE);
-
     public:
+
+    RenderSystem() : System() {
+        _mask = (Components::POSITION|Components::TEXTURE);
+    }
 
     void handle_events() {}
 
