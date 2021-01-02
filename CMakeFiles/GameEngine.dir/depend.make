@@ -6,6 +6,8 @@ CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/base/component.h
 CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/base/entity.h
 CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/base/system.h
 CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/manager.h
+CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/systems/control.h
+CMakeFiles/GameEngine.dir/main.cpp.o: core/ecs/systems/render.h
 CMakeFiles/GameEngine.dir/main.cpp.o: core/game.h
 CMakeFiles/GameEngine.dir/main.cpp.o: core/ilist.h
 CMakeFiles/GameEngine.dir/main.cpp.o: main.cpp

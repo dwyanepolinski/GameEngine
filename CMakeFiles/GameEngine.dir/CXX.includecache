@@ -13,6 +13,8 @@ SDL2/SDL_surface.h
 -
 string
 -
+fstream
+-
 assert.h
 -
 math.h
@@ -42,11 +44,23 @@ base/component.h
 base/system.h
 /home/john/Dev/GameEngine/core/ecs/base/system.h
 
+/home/john/Dev/GameEngine/core/ecs/systems/control.h
+../manager.h
+/home/john/Dev/GameEngine/core/ecs/manager.h
+
+/home/john/Dev/GameEngine/core/ecs/systems/render.h
+../manager.h
+/home/john/Dev/GameEngine/core/ecs/manager.h
+
 /home/john/Dev/GameEngine/core/game.h
 context.h
 /home/john/Dev/GameEngine/core/context.h
-ecs/manager.h
-/home/john/Dev/GameEngine/core/ecs/manager.h
+ecs/systems/render.h
+/home/john/Dev/GameEngine/core/ecs/systems/render.h
+ecs/systems/control.h
+/home/john/Dev/GameEngine/core/ecs/systems/control.h
+chrono
+-
 
 /home/john/Dev/GameEngine/core/ilist.h
 vector

@@ -17,8 +17,13 @@ namespace Components {
 }
 
 class Component {
+    private:
+    unsigned int entity_id;
+    
     public:
 
+    void set_entity_id(const unsigned int entity_id) { this->entity_id = entity_id; };
+    unsigned int get_entity_id() { return entity_id; }
     virtual bool set(const int variable, std::string value) {};
 };
 
@@ -101,21 +106,80 @@ class SizeComponent: public Component {
     int h;
 };
 
+class RectPair {
+    public:
+    SDL_Rect* src_rect;
+    SDL_Rect dst_rect;
+    int layer;
+
+    bool operator< (const RectPair& pair) const {
+        return layer < pair.layer;
+    }
+};
+
 class TextureComponent: public Component {
     // remember to set dst_rect x y from entity position
     const int id = Components::TEXTURE;
-    enum Vars { W = 0, H = 1, TEXTURE = 2, LAYER = 3 };
+    enum Vars { 
+        W          = 0, 
+        H          = 1, 
+        TEXTURE    = 2, 
+        LAYER      = 3, 
+        TXMAP_FILE = 4
+    };
+
+    void ensure_single_rect_pair() {
+        if(!rects.size()) {
+            RectPair pair;
+            pair.src_rect = NULL;
+            pair.dst_rect.x = pair.dst_rect.y = 0;
+            rects.emplace_back(pair);
+        }
+    }
 
     public:
+
+    void reload() {
+        std::ifstream map_file("/home/john/Dev/GameEngine/DemoGame" + file_name);
+        std::string type, index, layer, x, y, w, h;
+
+        if(!map_file.is_open())
+            return;
+
+        rects.clear();
+
+        while (map_file >> type >> index >> layer >> x >> y >> w >> h){
+            if(type == "S") {
+                SDL_Rect source;
+                source.x = std::stoi(x);
+                source.y = std::stoi(y);
+                source.w = std::stoi(w);
+                source.h = std::stoi(h);
+                src_rects.emplace_back(source);
+            } else if(type == "D") {
+                RectPair pair;
+                pair.src_rect = &src_rects[std::stoi(index)];
+
+                pair.dst_rect.x = std::stoi(x);
+                pair.dst_rect.y = std::stoi(y);
+                pair.dst_rect.w = std::stoi(w);
+                pair.dst_rect.h = std::stoi(h);
+                pair.layer = std::stoi(layer);
+                rects.emplace_back(pair);
+            }
+        }
+    }
 
     bool set(const int variable, std::string value) {
         switch (variable) {
         case Vars::W: {
-            dst_rect.w = std::stoi(value);
-            return true;    
+            ensure_single_rect_pair();
+            rects[0].dst_rect.w = std::stoi(value);
+            return true;
         }
         case Vars::H: {
-            dst_rect.h = std::stoi(value);
+            ensure_single_rect_pair();
+            rects[0].dst_rect.h = std::stoi(value);
             return true;    
         }
         case Vars::TEXTURE: {
@@ -126,13 +190,21 @@ class TextureComponent: public Component {
             layer = std::stoi(value);
             return true;    
         }
+        case Vars::TXMAP_FILE: {
+            file_name = value;
+            reload();
+            return true;    
+        }
         default:
             return false;
         }
     }
 
-    SDL_Rect src_rect;
-    SDL_Rect dst_rect;
+    std::string file_name;
+
+    std::vector<SDL_Rect> src_rects;
+    std::vector<RectPair> rects;
+    
     int layer;
     int texture_id;
 };
@@ -215,6 +287,7 @@ namespace ComponentManager {
             component_entity_rel.add_with_id(new IList<Component*>(), entity_id);
         }
         component_entity_rel[entity_id]->add_with_id(component_creators[(int)(log(component_id)/log(2))](), component_id);
+        (*component_entity_rel[entity_id])[component_id]->set_entity_id(entity_id);
     }
 
     void remove(const int entity_id, const int component_id) {

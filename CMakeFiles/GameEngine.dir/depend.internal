@@ -7,6 +7,8 @@ CMakeFiles/GameEngine.dir/main.cpp.o
  /home/john/Dev/GameEngine/core/ecs/base/entity.h
  /home/john/Dev/GameEngine/core/ecs/base/system.h
  /home/john/Dev/GameEngine/core/ecs/manager.h
+ /home/john/Dev/GameEngine/core/ecs/systems/control.h
+ /home/john/Dev/GameEngine/core/ecs/systems/render.h
  /home/john/Dev/GameEngine/core/game.h
  /home/john/Dev/GameEngine/core/ilist.h
  /home/john/Dev/GameEngine/main.cpp

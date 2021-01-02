@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_surface.h>
 #include <string>
+#include <fstream>
 #include <assert.h>
 #include <math.h>
 #include "ilist.h"

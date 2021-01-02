@@ -4,7 +4,6 @@
 #include "context.h"
 #include "ecs/systems/render.h"
 #include "ecs/systems/control.h"
-#include <fstream>
 #include <chrono>
 
 
@@ -51,13 +50,12 @@ class Game{
             update();
 
             end = clock::now();
-            std::cout<<ctx->dt()<<std::endl;
+            // std::cout<<ctx->dt()<<std::endl;
         }
     }
 
     void load() {
         std::ifstream game_file(ctx->get_wd() + "/demo.def");
-        std::string x = ctx->get_wd() + "/demo.def";
         std::string key, value;
 
         assert(game_file.is_open() && "[CRITICAL] Error reading game file");
