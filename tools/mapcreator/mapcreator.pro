@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    bmpwindow.cpp
+    bmpwindow.cpp \
+    qtileselector.cpp
 
 HEADERS += \
         mainwindow.h \
-    bmpwindow.h
+    bmpwindow.h \
+    qtileselector.h
 
 FORMS += \
         mainwindow.ui \

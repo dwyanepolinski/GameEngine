@@ -65,7 +65,7 @@
            <number>0</number>
           </property>
           <item row="0" column="0">
-           <widget class="QLabel" name="bmp">
+           <widget class="QTileSelector" name="bmp">
             <property name="mouseTracking">
              <bool>false</bool>
             </property>
@@ -85,25 +85,45 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="0">
+          <item row="1" column="0">
            <widget class="QLabel" name="label_2">
             <property name="text">
              <string>X:</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="1" column="1">
            <widget class="QLineEdit" name="lineEdit"/>
           </item>
-          <item row="1" column="0">
+          <item row="4" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Y: </string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="4" column="1">
            <widget class="QLineEdit" name="lineEdit_2"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>W: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lineEdit_3"/>
+          </item>
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="lineEdit_4"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>H: </string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -118,7 +138,7 @@
              <x>0</x>
              <y>0</y>
              <width>228</width>
-             <height>189</height>
+             <height>103</height>
             </rect>
            </property>
           </widget>
@@ -149,6 +169,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QTileSelector</class>
+   <extends>QLabel</extends>
+   <header>qtileselector.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -52,11 +52,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../mapcreator/main.cpp \
 		../mapcreator/mainwindow.cpp \
-		../mapcreator/bmpwindow.cpp moc_mainwindow.cpp \
+		../mapcreator/bmpwindow.cpp \
+		../mapcreator/qtileselector.cpp moc_mainwindow.cpp \
 		moc_bmpwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		bmpwindow.o \
+		qtileselector.o \
 		moc_mainwindow.o \
 		moc_bmpwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -113,6 +115,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		../mapcreator/.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -133,9 +136,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../mapcreator/mapcreator.pro ../mapcreator/mainwindow.h \
-		../mapcreator/bmpwindow.h ../mapcreator/main.cpp \
+		../mapcreator/bmpwindow.h \
+		../mapcreator/qtileselector.h ../mapcreator/main.cpp \
 		../mapcreator/mainwindow.cpp \
-		../mapcreator/bmpwindow.cpp
+		../mapcreator/bmpwindow.cpp \
+		../mapcreator/qtileselector.cpp
 QMAKE_TARGET  = mapcreator
 DESTDIR       = 
 TARGET        = mapcreator
@@ -201,6 +206,7 @@ Makefile: ../mapcreator/mapcreator.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/lin
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -279,6 +285,7 @@ Makefile: ../mapcreator/mapcreator.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/lin
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -317,8 +324,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../mapcreator/mainwindow.h ../mapcreator/bmpwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../mapcreator/main.cpp ../mapcreator/mainwindow.cpp ../mapcreator/bmpwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../mapcreator/mainwindow.h ../mapcreator/bmpwindow.h ../mapcreator/qtileselector.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../mapcreator/main.cpp ../mapcreator/mainwindow.cpp ../mapcreator/bmpwindow.cpp ../mapcreator/qtileselector.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mapcreator/mainwindow.ui ../mapcreator/bmpwindow.ui $(DISTDIR)/
 
 
@@ -396,8 +403,12 @@ mainwindow.o: ../mapcreator/mainwindow.cpp ../mapcreator/mainwindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mapcreator/mainwindow.cpp
 
 bmpwindow.o: ../mapcreator/bmpwindow.cpp ../mapcreator/bmpwindow.h \
-		ui_bmpwindow.h
+		ui_bmpwindow.h \
+		../mapcreator/qtileselector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bmpwindow.o ../mapcreator/bmpwindow.cpp
+
+qtileselector.o: ../mapcreator/qtileselector.cpp ../mapcreator/qtileselector.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qtileselector.o ../mapcreator/qtileselector.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

@@ -1,7 +1,6 @@
 #include "bmpwindow.h"
 #include "ui_bmpwindow.h"
-
-#include <QLabel>
+#include "qtileselector.h"
 
 BMPWindow::BMPWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,5 +19,6 @@ void BMPWindow::set_bmp_file_name(QString name) {
 }
 
 void BMPWindow::load_bmp() {
-    auto label = this->findChild<QLabel*>("bmp");
+    auto tile_selector = this->findChild<QTileSelector*>("bmp");
+    tile_selector->load_bmp(this->bmp_file_name);
 }

@@ -24,6 +24,7 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "qtileselector.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -38,13 +39,17 @@ public:
     QScrollArea *scrollArea_2;
     QWidget *scrollAreaWidgetContents_2;
     QGridLayout *gridLayout_3;
-    QLabel *bmp;
+    QTileSelector *bmp;
     QVBoxLayout *verticalLayout;
     QFormLayout *formLayout;
     QLabel *label_2;
     QLineEdit *lineEdit;
     QLabel *label_3;
     QLineEdit *lineEdit_2;
+    QLabel *label_4;
+    QLineEdit *lineEdit_3;
+    QLineEdit *lineEdit_4;
+    QLabel *label_5;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QHBoxLayout *horizontalLayout;
@@ -83,8 +88,9 @@ public:
         gridLayout_3->setSpacing(0);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
-        bmp = new QLabel(scrollAreaWidgetContents_2);
+        bmp = new QTileSelector(scrollAreaWidgetContents_2);
         bmp->setObjectName(QStringLiteral("bmp"));
+        bmp->setMouseTracking(false);
         bmp->setStyleSheet(QStringLiteral("border: 1px solid black;"));
 
         gridLayout_3->addWidget(bmp, 0, 0, 1, 1);
@@ -100,22 +106,42 @@ public:
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, label_2);
+        formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
 
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, lineEdit);
+        formLayout->setWidget(1, QFormLayout::FieldRole, lineEdit);
 
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
-        formLayout->setWidget(1, QFormLayout::LabelRole, label_3);
+        formLayout->setWidget(4, QFormLayout::LabelRole, label_3);
 
         lineEdit_2 = new QLineEdit(centralwidget);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, lineEdit_2);
+        formLayout->setWidget(4, QFormLayout::FieldRole, lineEdit_2);
+
+        label_4 = new QLabel(centralwidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        formLayout->setWidget(5, QFormLayout::LabelRole, label_4);
+
+        lineEdit_3 = new QLineEdit(centralwidget);
+        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
+
+        formLayout->setWidget(5, QFormLayout::FieldRole, lineEdit_3);
+
+        lineEdit_4 = new QLineEdit(centralwidget);
+        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
+
+        formLayout->setWidget(6, QFormLayout::FieldRole, lineEdit_4);
+
+        label_5 = new QLabel(centralwidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        formLayout->setWidget(6, QFormLayout::LabelRole, label_5);
 
 
         verticalLayout->addLayout(formLayout);
@@ -125,7 +151,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 228, 189));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 228, 103));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout->addWidget(scrollArea);
@@ -166,6 +192,8 @@ public:
         bmp->setText(QString());
         label_2->setText(QApplication::translate("BMPWindow", "X:", Q_NULLPTR));
         label_3->setText(QApplication::translate("BMPWindow", "Y: ", Q_NULLPTR));
+        label_4->setText(QApplication::translate("BMPWindow", "W: ", Q_NULLPTR));
+        label_5->setText(QApplication::translate("BMPWindow", "H: ", Q_NULLPTR));
         pushButton_2->setText(QApplication::translate("BMPWindow", "Add", Q_NULLPTR));
         pushButton->setText(QApplication::translate("BMPWindow", "Remove", Q_NULLPTR));
     } // retranslateUi
