@@ -50,7 +50,7 @@ class Game{
             update();
 
             end = clock::now();
-            // std::cout<<ctx->dt()<<std::endl;
+            std::cout<<ctx->dt()<<std::endl;
         }
     }
 
