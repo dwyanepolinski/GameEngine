@@ -13,12 +13,10 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_new_map_clicked()
-{
+void MainWindow::on_new_map_clicked() {
     QString file_name = QFileDialog::getOpenFileName(this, tr("Open BMP file"), "/home/john/Pobrane", tr("BMP Files (*.bmp)"));
     auto bmp_window = new BMPWindow();
-    bmp_window->set_bmp_file_name(file_name);
-    bmp_window->load_bmp();
+    bmp_window->load_bmp(file_name);
     this->hide();
     bmp_window->show();
 }
